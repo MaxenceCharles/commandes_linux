@@ -279,23 +279,49 @@
         const catForm = document.getElementById('cat-form');
         const modalCategorySelect = document.getElementById('modal-category');
 
-        function initData() {
-            const saved = localStorage.getItem('linux_memo_data');
-            if (saved) {
-                try {
-                    linuxData = JSON.parse(saved);
-                } catch (e) {
-                    console.error("Erreur de lecture du localStorage, chargement par défaut", e);
-                    linuxData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+        async function initData() {
+            try {
+                // On essaye de charger data.json depuis le serveur
+                const res = await fetch('data.json');
+                if (res.ok) {
+                    linuxData = await res.json();
+                } else {
+                    throw new Error('Fichier data.json introuvable');
                 }
-            } else {
-                linuxData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+            } catch (e) {
+                console.error("Erreur de chargement, utilisation du cache local ou secours", e);
+                const saved = localStorage.getItem('linux_memo_data');
+                if (saved) {
+                    linuxData = JSON.parse(saved);
+                }
             }
             renderApp();
         }
 
-        function saveData() {
+        async function saveData() {
+            // Sauvegarde locale de sécurité
             localStorage.setItem('linux_memo_data', JSON.stringify(linuxData));
+
+            // Envoi vers la Netlify Function
+            try {
+                showToast("Sauvegarde sur GitHub en cours...");
+                const res = await fetch('/.netlify/functions/save-data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(linuxData)
+                });
+
+                const result = await res.json();
+
+                if (res.ok) {
+                    showToast("Modifications commitées sur GitHub !");
+                } else {
+                    showToast("Erreur GitHub : " + result.error, true);
+                }
+            } catch (err) {
+                console.error(err);
+                showToast("Erreur réseau lors de la sauvegarde", true);
+            }
         }
 
         function showToast(message, isError = false) {

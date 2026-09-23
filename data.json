@@ -1,0 +1,9 @@
+[
+  {
+    "id": "cat_1",
+    "name": "📂 Navigation & Fichiers",
+    "commands": [
+      { "id": "cmd_1", "name": "ls", "desc": "Lister le contenu d'un répertoire", "options": "-l (détails), -a (fichiers cachés), -h (taille lisible)", "example": "ls -la" }
+    ]
+  }
+]
