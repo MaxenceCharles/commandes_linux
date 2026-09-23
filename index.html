@@ -209,10 +209,11 @@
   </div>
 
   <div id="content">
-    <!-- Catégorie 1 -->
+
+    <!-- 1. Navigation et Fichiers -->
     <div class="category">
       <div class="category-header">
-        <h2 class="category-title" contenteditable="true">📁 Navigation & Fichiers</h2>
+        <h2 class="category-title" contenteditable="true">📁 1. Navigation et Gestion des Fichiers</h2>
         <button class="btn-danger" onclick="this.closest('.category').remove()" title="Supprimer la catégorie">✕</button>
       </div>
       <table>
@@ -228,13 +229,49 @@
           <tr>
             <td class="cmd" contenteditable="true">ls</td>
             <td contenteditable="true">Lister le contenu d'un répertoire</td>
-            <td class="opt" contenteditable="true">ls -la (tout afficher), ls -lh (tailles lisibles)</td>
+            <td class="opt" contenteditable="true">ls -la (tout afficher + détails), ls -lh (tailles en Mo/Go)</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
           <tr>
             <td class="cmd" contenteditable="true">cd</td>
             <td contenteditable="true">Changer de répertoire</td>
-            <td class="opt" contenteditable="true">cd ~ (dossier perso), cd - (répertoire précédent)</td>
+            <td class="opt" contenteditable="true">cd ~ (répertoire personnel), cd - (dossier précédent)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">pwd</td>
+            <td contenteditable="true">Afficher le chemin du répertoire courant</td>
+            <td class="opt" contenteditable="true">pwd</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">mkdir</td>
+            <td contenteditable="true">Créer un nouveau répertoire</td>
+            <td class="opt" contenteditable="true">mkdir -p dossier/sous_dossier (créer arborescence)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">cp</td>
+            <td contenteditable="true">Copier des fichiers ou dossiers</td>
+            <td class="opt" contenteditable="true">cp -r dossier_src/ dossier_dest/ (copier un dossier)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">mv</td>
+            <td contenteditable="true">Déplacer ou renommer un fichier/dossier</td>
+            <td class="opt" contenteditable="true">mv ancien_nom nouveau_nom</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">rm</td>
+            <td contenteditable="true">Supprimer des fichiers ou dossiers</td>
+            <td class="opt" contenteditable="true">rm -rf dossier/ (suppression récursive et forcée)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">find</td>
+            <td contenteditable="true">Rechercher des fichiers dans l'arborescence</td>
+            <td class="opt" contenteditable="true">find /chemin -name "*.txt" (recherche par nom)</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
         </tbody>
@@ -242,10 +279,10 @@
       <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
     </div>
 
-    <!-- Catégorie 2 -->
+    <!-- 2. Lecture et Édition -->
     <div class="category">
       <div class="category-header">
-        <h2 class="category-title" contenteditable="true">⚙️ Système & Processus</h2>
+        <h2 class="category-title" contenteditable="true">📄 2. Lecture et Édition de Fichiers</h2>
         <button class="btn-danger" onclick="this.closest('.category').remove()" title="Supprimer la catégorie">✕</button>
       </div>
       <table>
@@ -259,21 +296,181 @@
         </thead>
         <tbody>
           <tr>
-            <td class="cmd" contenteditable="true">htop</td>
-            <td contenteditable="true">Surveillance des ressources et processus</td>
-            <td class="opt" contenteditable="true">htop (interactif)</td>
+            <td class="cmd" contenteditable="true">cat</td>
+            <td contenteditable="true">Afficher le contenu complet d'un fichier</td>
+            <td class="opt" contenteditable="true">cat -n fichier.txt (numéroter les lignes)</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
           <tr>
-            <td class="cmd" contenteditable="true">df</td>
-            <td contenteditable="true">Espace disque disponible</td>
-            <td class="opt" contenteditable="true">df -h (format lisible)</td>
+            <td class="cmd" contenteditable="true">less</td>
+            <td contenteditable="true">Lire un fichier page par page</td>
+            <td class="opt" contenteditable="true">less fichier.log (défilement, '/' pour chercher)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">head / tail</td>
+            <td contenteditable="true">Afficher le début ou la fin d'un fichier</td>
+            <td class="opt" contenteditable="true">tail -n 20 fichier.log, tail -f (suivre en direct)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">grep</td>
+            <td contenteditable="true">Rechercher du texte dans un fichier/dossier</td>
+            <td class="opt" contenteditable="true">grep -rn "erreur" /var/log/ (recherche récursive)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">nano / vim</td>
+            <td contenteditable="true">Éditeurs de texte dans le terminal</td>
+            <td class="opt" contenteditable="true">nano fichier.txt (simple), vim fichier.txt (avancé)</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
         </tbody>
       </table>
       <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
     </div>
+
+    <!-- 3. Système et Processus -->
+    <div class="category">
+      <div class="category-header">
+        <h2 class="category-title" contenteditable="true">⚙️ 3. Système, Processus et Ressources</h2>
+        <button class="btn-danger" onclick="this.closest('.category').remove()" title="Supprimer la catégorie">✕</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 20%;">Commande</th>
+            <th style="width: 35%;">Utilité</th>
+            <th style="width: 40%;">Options & Exemples</th>
+            <th style="width: 5%;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cmd" contenteditable="true">top / htop</td>
+            <td contenteditable="true">Surveillance en direct des ressources & processus</td>
+            <td class="opt" contenteditable="true">htop (interface visuelle et interactive)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">ps</td>
+            <td contenteditable="true">Lister les processus en cours d'exécution</td>
+            <td class="opt" contenteditable="true">ps aux (liste complète de tous les processus)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">kill</td>
+            <td contenteditable="true">Arrêter un processus</td>
+            <td class="opt" contenteditable="true">kill -9 PID (forcer l'arrêt d'un processus)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">df</td>
+            <td contenteditable="true">Afficher l'espace disque disponible</td>
+            <td class="opt" contenteditable="true">df -h (lisible en Mo/Go)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">du</td>
+            <td contenteditable="true">Taille occupée par un dossier ou un fichier</td>
+            <td class="opt" contenteditable="true">du -sh dossier/ (taille globale condensée)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">free</td>
+            <td contenteditable="true">Utilisation de la mémoire RAM et du Swap</td>
+            <td class="opt" contenteditable="true">free -h (affichage lisible)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
+    </div>
+
+    <!-- 4. Permissions et Utilisateurs -->
+    <div class="category">
+      <div class="category-header">
+        <h2 class="category-title" contenteditable="true">🔐 4. Permissions et Utilisateurs</h2>
+        <button class="btn-danger" onclick="this.closest('.category').remove()" title="Supprimer la catégorie">✕</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 20%;">Commande</th>
+            <th style="width: 35%;">Utilité</th>
+            <th style="width: 40%;">Options & Exemples</th>
+            <th style="width: 5%;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cmd" contenteditable="true">chmod</td>
+            <td contenteditable="true">Modifier les droits/permissions d'accès</td>
+            <td class="opt" contenteditable="true">chmod +x script.sh, chmod 755 dossier</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">chown</td>
+            <td contenteditable="true">Modifier le propriétaire et le groupe</td>
+            <td class="opt" contenteditable="true">chown user:group fichier, chown -R user:group dossier/</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">sudo</td>
+            <td contenteditable="true">Exécuter une commande avec privilèges root</td>
+            <td class="opt" contenteditable="true">sudo command</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
+    </div>
+
+    <!-- 5. Réseau -->
+    <div class="category">
+      <div class="category-header">
+        <h2 class="category-title" contenteditable="true">🌐 5. Réseau et Téléchargement</h2>
+        <button class="btn-danger" onclick="this.closest('.category').remove()" title="Supprimer la catégorie">✕</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 20%;">Commande</th>
+            <th style="width: 35%;">Utilité</th>
+            <th style="width: 40%;">Options & Exemples</th>
+            <th style="width: 5%;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cmd" contenteditable="true">ping</td>
+            <td contenteditable="true">Tester la connectivité vers un serveur</td>
+            <td class="opt" contenteditable="true">ping -c 4 google.com (envoyer 4 paquets)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">curl / wget</td>
+            <td contenteditable="true">Télécharger un fichier ou effectuer des requêtes web</td>
+            <td class="opt" contenteditable="true">curl -I https://site.com (en-têtes HTTP), wget URL</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">ss / netstat</td>
+            <td contenteditable="true">Afficher les ports ouverts et connexions réseau</td>
+            <td class="opt" contenteditable="true">ss -tulpn (ports écoutes + processus associés)</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+          <tr>
+            <td class="cmd" contenteditable="true">ssh</td>
+            <td contenteditable="true">Connexion sécurisée à un serveur distant</td>
+            <td class="opt" contenteditable="true">ssh user@ip_serveur, ssh -i cle.pem user@ip</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
+    </div>
+
   </div>
 </div>
 
@@ -305,7 +502,6 @@
 </div>
 
 <script>
-  // Charger la configuration au démarrage
   window.onload = function() {
     document.getElementById('ghUser').value = localStorage.getItem('gh_user') || '';
     document.getElementById('ghRepo').value = localStorage.getItem('gh_repo') || '';
@@ -380,7 +576,6 @@
     });
   }
 
-  // Sauvegarde directe via l'API GitHub
   async function saveToGitHub() {
     const user = localStorage.getItem('gh_user');
     const repo = localStorage.getItem('gh_repo');
@@ -396,7 +591,6 @@
     const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
 
     try {
-      // 1. Récupérer le SHA du fichier existant
       const getRes = await fetch(apiUrl, {
         headers: { 'Authorization': `token ${token}` }
       });
@@ -407,26 +601,21 @@
         sha = getData.sha;
       }
 
-      // 2. Nettoyer le HTML avant l'envoi (réinitialiser la recherche)
       document.getElementById('searchInput').value = '';
       filterCommands();
 
-      // Nettoyer les valeurs des champs input de la config dans le code envoyé
       document.getElementById('ghUser').value = '';
       document.getElementById('ghRepo').value = '';
       document.getElementById('ghToken').value = '';
 
       const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 
-      // Restaurer la config visuelle locale
       document.getElementById('ghUser').value = user;
       document.getElementById('ghRepo').value = repo;
       document.getElementById('ghToken').value = token;
 
-      // Encoder le HTML en Base64 UTF-8
       const encodedContent = btoa(unescape(encodeURIComponent(htmlContent)));
 
-      // 3. Effectuer le Commit sur GitHub
       const putRes = await fetch(apiUrl, {
         method: 'PUT',
         headers: {
@@ -434,7 +623,7 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          message: 'Mise à jour dynamique via l\'interface web',
+          message: 'Mise à jour dynamique des commandes Linux',
           content: encodedContent,
           sha: sha
         })
@@ -448,7 +637,7 @@
       }
 
     } catch (err) {
-      alert(` Erreur réseau ou API : ${err.message}`);
+      alert(`Erreur réseau ou API : ${err.message}`);
     }
   }
 </script>
