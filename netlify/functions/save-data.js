@@ -1,7 +1,7 @@
 // netlify/functions/save-data.js
 
-const REPO_OWNER = 'VOTRE_PSEUDO_GITHUB'; // ⚠️ Remplacer par votre nom d'utilisateur GitHub
-const REPO_NAME = 'VOTRE_NOM_DE_REPO';    // ⚠️ Remplacer par le nom de votre dépôt
+const REPO_OWNER = 'MaxenceCharles'; // ⚠️ Remplacer par votre nom d'utilisateur GitHub
+const REPO_NAME = 'commandes_linux';    // ⚠️ Remplacer par le nom de votre dépôt
 const FILE_PATH = 'data.json';             // Chemin du fichier dans le dépôt
 const BRANCH = 'main';                      // Nom de votre branche principale ('main' ou 'master')
 
