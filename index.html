@@ -220,19 +220,32 @@
         const modalCategorySelect = document.getElementById('modal-category');
 
         async function initData() {
+        // ⚠️ Remplace par ton pseudo GitHub et le nom exact de ton dépôt
+            const GITHUB_USER = 'MaxenceCharles';
+            const GITHUB_REPO = 'commandes_linux';
+            const BRANCH = 'main'; // ou 'master'
+
+            // URL brute du fichier data.json directement sur GitHub
+            const rawDataUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}/data.json?t=${Date.now()}`;
+
             try {
-                // On essaye de charger data.json depuis le serveur
-                const res = await fetch('data.json');
+                const res = await fetch(rawDataUrl);
                 if (res.ok) {
                     linuxData = await res.json();
+                    // On met à jour le cache local au passage
+                    localStorage.setItem('linux_memo_data', JSON.stringify(linuxData));
                 } else {
-                    throw new Error('Fichier data.json introuvable');
+                    throw new Error('Erreur lors du chargement depuis GitHub');
                 }
             } catch (e) {
-                console.error("Erreur de chargement, utilisation du cache local ou secours", e);
+                console.error("Impossible de récupérer le fichier sur GitHub, chargement du cache local :", e);
                 const saved = localStorage.getItem('linux_memo_data');
                 if (saved) {
-                    linuxData = JSON.parse(saved);
+                    try {
+                        linuxData = JSON.parse(saved);
+                    } catch (err) {
+                        console.error("Cache local invalide", err);
+                    }
                 }
             }
             renderApp();
