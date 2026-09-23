@@ -1,552 +1,630 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aide-mémoire Commandes Linux</title>
-  <style>
-    :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --text-color: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-hover: #0284c7;
-      --cmd-color: #f43f5e;
-      --opt-color: #fbbf24;
-      --border-color: #334155;
-      --danger: #ef4444;
-      --success: #22c55e;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aide-Mémoire Commandes Linux Éditable</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 20px;
-    }
+        /* Editable fields highlight */
+        [contenteditable="true"]:hover {
+            outline: 2px dashed #38bdf8;
+            outline-offset: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        [contenteditable="true"]:focus {
+            outline: 2px solid #38bdf8;
+            outline-offset: 2px;
+            background-color: #1e293b;
+            border-radius: 4px;
+        }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    h1 {
-      margin: 0;
-      color: var(--accent);
-      font-size: 1.8rem;
-    }
-
-    .toolbar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    button {
-      background-color: var(--card-bg);
-      color: var(--text-color);
-      border: 1px solid var(--border-color);
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-
-    button:hover {
-      background-color: var(--border-color);
-    }
-
-    button.primary {
-      background-color: var(--accent);
-      color: #000;
-      border: none;
-      font-weight: 600;
-    }
-
-    button.primary:hover {
-      background-color: var(--accent-hover);
-      color: #fff;
-    }
-
-    .search-box {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    input[type="text"], input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      color: var(--text-color);
-      border-radius: 6px;
-      box-sizing: border-box;
-    }
-
-    .category {
-      background-color: var(--card-bg);
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 25px;
-      border: 1px solid var(--border-color);
-    }
-
-    .category-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .category-title {
-      margin: 0;
-      color: var(--accent);
-      font-size: 1.3rem;
-      outline: none;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    th, td {
-      text-align: left;
-      padding: 10px;
-      border-bottom: 1px solid var(--border-color);
-      vertical-align: top;
-    }
-
-    th {
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .cmd {
-      color: var(--cmd-color);
-      font-family: monospace;
-      font-weight: bold;
-    }
-
-    .opt {
-      color: var(--opt-color);
-      font-family: monospace;
-    }
-
-    [contenteditable="true"] {
-      outline: none;
-      padding: 2px 4px;
-      border-radius: 4px;
-    }
-
-    [contenteditable="true"]:focus {
-      background-color: rgba(56, 189, 248, 0.1);
-      box-shadow: 0 0 0 1px var(--accent);
-    }
-
-    .btn-danger {
-      color: var(--danger);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.1rem;
-      padding: 2px 6px;
-    }
-
-    /* Modal Config GitHub */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .modal-content {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 8px;
-      width: 400px;
-      max-width: 90%;
-      border: 1px solid var(--border-color);
-    }
-
-    .modal-content h2 { margin-top: 0; color: var(--accent); }
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; margin-bottom: 5px; color: var(--text-muted); }
-  </style>
+        /* Code styling badges */
+        .cmd-badge {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            background-color: #1e1e2e;
+            color: #f38ba8;
+            border: 1px solid #f38ba833;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .opt-badge {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            color: #f9e2af;
+            font-weight: 600;
+        }
+        .ex-badge {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            background-color: #111827;
+            color: #a6e3a1;
+            border: 1px solid #a6e3a133;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen pb-12">
 
-<div class="container">
-  <header>
-    <h1>🐧 Aide-mémoire Commandes Linux</h1>
-    <div class="toolbar">
-      <button onclick="toggleConfigModal()">⚙️ Config Gist</button>
-      <button class="primary" onclick="saveToGist()">☁️ Enregistrer sur Gist</button>
-      <button onclick="exportJSON()">📥 Exporter JSON</button>
-      <button onclick="triggerImport()">📤 Importer JSON</button>
-      <input type="file" id="importInput" style="display: none;" accept=".json" onchange="importJSON(event)">
-      <button onclick="addCategory()">+ Nouvelle catégorie</button>
-    </div>
-  </header>
+    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-sky-500/10 text-sky-400 rounded-xl border border-sky-500/20">
+                        <i class="fa-solid fa-terminal text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-100 flex items-center gap-2">
+                            Aide-Mémoire Linux
+                            <span class="text-xs font-normal px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Éditable</span>
+                        </h1>
+                        <p class="text-xs text-slate-400">Cliquez sur n'importe quel texte pour l'éditer en direct</p>
+                    </div>
+                </div>
 
-  <div class="search-box">
-    <input type="text" id="searchInput" onkeyup="filterCommands()" placeholder="Rechercher une commande, une option, un exemple...">
-  </div>
+                <!-- Action Controls -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <button id="add-cat-btn" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-lg border border-slate-700 transition flex items-center gap-2">
+                        <i class="fa-solid fa-folder-plus text-sky-400"></i> Nouvelle Catégorie
+                    </button>
+                    <button id="export-json-btn" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-lg border border-slate-700 transition flex items-center gap-2">
+                        <i class="fa-solid fa-download text-emerald-400"></i> Exporter (JSON)
+                    </button>
+                    <label class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-lg border border-slate-700 transition flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-upload text-amber-400"></i> Importer
+                        <input type="file" id="import-json-input" accept=".json" class="hidden">
+                    </label>
+                    <button id="reset-btn" class="px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-sm font-medium rounded-lg border border-rose-500/20 transition flex items-center gap-2">
+                        <i class="fa-solid fa-rotate-left"></i> Réinitialiser
+                    </button>
+                </div>
+            </div>
 
-  <div id="content">
-    <!-- 1. Navigation et Fichiers -->
-    <div class="category">
-      <div class="category-header">
-        <h2 class="category-title" contenteditable="true">📁 1. Navigation et Gestion des Fichiers</h2>
-        <button class="btn-danger" onclick="this.closest('.category').remove()" title="Supprimer la catégorie">✕</button>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 15%;">Commande</th>
-            <th style="width: 30%;">Utilité</th>
-            <th style="width: 25%;">Options Principales</th>
-            <th style="width: 25%;">Exemples</th>
-            <th style="width: 5%;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="cmd" contenteditable="true">ls</td>
-            <td contenteditable="true">Lister le contenu d'un répertoire</td>
-            <td class="opt" contenteditable="true">-a (masqués), -l (détails), -h (tailles lisibles)</td>
-            <td contenteditable="true">ls -la /var/log</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">cd</td>
-            <td contenteditable="true">Changer de répertoire</td>
-            <td class="opt" contenteditable="true">~ (home), - (précédent)</td>
-            <td contenteditable="true">cd /var/www/html</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">mkdir</td>
-            <td contenteditable="true">Créer un nouveau répertoire</td>
-            <td class="opt" contenteditable="true">-p (créer arborescence parente)</td>
-            <td contenteditable="true">mkdir -p projet/src/js</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">cp</td>
-            <td contenteditable="true">Copier des fichiers ou dossiers</td>
-            <td class="opt" contenteditable="true">-r (récursif), -v (détaillé)</td>
-            <td contenteditable="true">cp -r src/ dist/</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
-    </div>
-
-    <!-- 2. Lecture et Édition -->
-    <div class="category">
-      <div class="category-header">
-        <h2 class="category-title" contenteditable="true">📄 2. Lecture et Édition de Fichiers</h2>
-        <button class="btn-danger" onclick="this.closest('.category').remove()" title="Supprimer la catégorie">✕</button>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 15%;">Commande</th>
-            <th style="width: 30%;">Utilité</th>
-            <th style="width: 25%;">Options Principales</th>
-            <th style="width: 25%;">Exemples</th>
-            <th style="width: 5%;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="cmd" contenteditable="true">grep</td>
-            <td contenteditable="true">Rechercher du texte dans un fichier</td>
-            <td class="opt" contenteditable="true">-r (récursif), -i (insensible casse), -n (lignes)</td>
-            <td contenteditable="true">grep -rn "error" /var/log/</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">tail</td>
-            <td contenteditable="true">Afficher la fin d'un fichier</td>
-            <td class="opt" contenteditable="true">-f (suivre en direct), -n (nb lignes)</td>
-            <td contenteditable="true">tail -f -n 50 /var/log/syslog</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Config Gist -->
-<div class="modal" id="configModal">
-  <div class="modal-content">
-    <h2>Configuration GitHub Gist</h2>
-    <div class="form-group">
-      <label>ID du Gist :</label>
-      <input type="text" id="gistId" placeholder="ex: 8f9b1c2d3e4f5a6b7c8d9e0f">
-    </div>
-    <div class="form-group">
-      <label>Personal Access Token (ghp_...) :</label>
-      <input type="password" id="gistToken" placeholder="ghp_xxxxxxxxxxxx">
-    </div>
-    <div style="display: flex; gap: 10px; justify-content: flex-end;">
-      <button onclick="toggleConfigModal()">Annuler</button>
-      <button class="primary" onclick="saveConfig()">Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  window.onload = function() {
-    document.getElementById('gistId').value = localStorage.getItem('gist_id') || '';
-    document.getElementById('gistToken').value = localStorage.getItem('gist_token') || '';
-    loadFromGistOnStartup();
-  };
-
-  function toggleConfigModal() {
-    const modal = document.getElementById('configModal');
-    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-  }
-
-  function saveConfig() {
-    localStorage.setItem('gist_id', document.getElementById('gistId').value.trim());
-    localStorage.setItem('gist_token', document.getElementById('gistToken').value.trim());
-    toggleConfigModal();
-    alert('Identifiants enregistrés localement !');
-    loadFromGistOnStartup();
-  }
-
-  function addRow(button) {
-    const tbody = button.previousElementSibling.querySelector('tbody');
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="cmd" contenteditable="true">cmd</td>
-      <td contenteditable="true">Description...</td>
-      <td class="opt" contenteditable="true">Options...</td>
-      <td contenteditable="true">Exemples...</td>
-      <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-    `;
-    tbody.appendChild(tr);
-  }
-
-  function addCategory() {
-    const content = document.getElementById('content');
-    const cat = document.createElement('div');
-    cat.className = 'category';
-    cat.innerHTML = `
-      <div class="category-header">
-        <h2 class="category-title" contenteditable="true">🆕 Nouvelle Catégorie</h2>
-        <button class="btn-danger" onclick="this.closest('.category').remove()">✕</button>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 15%;">Commande</th>
-            <th style="width: 30%;">Utilité</th>
-            <th style="width: 25%;">Options Principales</th>
-            <th style="width: 25%;">Exemples</th>
-            <th style="width: 5%;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="cmd" contenteditable="true">cmd</td>
-            <td contenteditable="true">Description</td>
-            <td class="opt" contenteditable="true">Options</td>
-            <td contenteditable="true">Exemple</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
-    `;
-    content.appendChild(cat);
-  }
-
-  function filterCommands() {
-    const filter = document.getElementById('searchInput').value.toLowerCase();
-    const rows = document.querySelectorAll('tbody tr');
-    rows.forEach(row => {
-      const text = row.textContent.toLowerCase();
-      row.style.display = text.includes(filter) ? '' : 'none';
-    });
-  }
-
-  function getDataStructure() {
-    const categories = [];
-    document.querySelectorAll('.category').forEach(catEl => {
-      const title = catEl.querySelector('.category-title').innerText.trim();
-      const commands = [];
-      catEl.querySelectorAll('tbody tr').forEach(tr => {
-        const cells = tr.querySelectorAll('td');
-        if (cells.length >= 4) {
-          commands.push({
-            cmd: cells[0].innerText.trim(),
-            utility: cells[1].innerText.trim(),
-            options: cells[2].innerText.trim(),
-            examples: cells[3].innerText.trim()
-          });
-        }
-      });
-      categories.push({ title, commands });
-    });
-    return categories;
-  }
-
-  function renderDataStructure(data) {
-    const content = document.getElementById('content');
-    content.innerHTML = '';
-    data.forEach(cat => {
-      const catEl = document.createElement('div');
-      catEl.className = 'category';
-      let rowsHTML = '';
-      cat.commands.forEach(c => {
-        rowsHTML += `
-          <tr>
-            <td class="cmd" contenteditable="true">${c.cmd}</td>
-            <td contenteditable="true">${c.utility}</td>
-            <td class="opt" contenteditable="true">${c.options}</td>
-            <td contenteditable="true">${c.examples}</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-        `;
-      });
-      catEl.innerHTML = `
-        <div class="category-header">
-          <h2 class="category-title" contenteditable="true">${cat.title}</h2>
-          <button class="btn-danger" onclick="this.closest('.category').remove()">✕</button>
+            <!-- Search and Filter Bar -->
+            <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                <div class="relative flex-1">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="search-input" placeholder="Rechercher une commande, option, description..." 
+                           class="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500 transition text-sm">
+                </div>
+                <button id="add-cmd-btn" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-medium text-sm rounded-lg shadow-lg shadow-sky-600/20 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Ajouter une Commande
+                </button>
+            </div>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th style="width: 15%;">Commande</th>
-              <th style="width: 30%;">Utilité</th>
-              <th style="width: 25%;">Options Principales</th>
-              <th style="width: 25%;">Exemples</th>
-              <th style="width: 5%;"></th>
-            </tr>
-          </thead>
-          <tbody>${rowsHTML}</tbody>
-        </table>
-        <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
-      `;
-      content.appendChild(catEl);
-    });
-  }
+    </header>
 
-  function exportJSON() {
-    const data = getDataStructure();
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'commandes_linux.json';
-    a.click();
-  }
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <!-- Toast Notification -->
+        <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-800 text-slate-100 border border-slate-700 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+            <i id="toast-icon" class="fa-solid fa-check-circle text-emerald-400"></i>
+            <span id="toast-msg" class="text-sm">Action effectuée</span>
+        </div>
 
-  function triggerImport() {
-    document.getElementById('importInput').click();
-  }
+        <!-- Categories and Tables Container -->
+        <div id="categories-container" class="space-y-8">
+            <!-- Rendered dynamically by JS -->
+        </div>
+    </main>
 
-  function importJSON(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      try {
-        const data = JSON.parse(e.target.result);
-        renderDataStructure(data);
-      } catch (err) {
-        alert('Erreur lors de la lecture du fichier JSON : ' + err.message);
-      }
-    };
-    reader.readAsText(file);
-  }
+    <!-- Modal: Add New Command -->
+    <div id="cmd-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
+            <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                    <i class="fa-solid fa-square-plus text-sky-400"></i> Nouvelle Commande
+                </h3>
+                <button id="close-cmd-modal" class="text-slate-400 hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="cmd-form" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Catégorie</label>
+                    <select id="modal-category" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm" required>
+                        <!-- Populated by JS -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Commande</label>
+                    <input type="text" id="modal-cmd" placeholder="ex: grep" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Utilité / Description</label>
+                    <input type="text" id="modal-desc" placeholder="ex: Rechercher un motif dans un fichier" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Options principales</label>
+                    <input type="text" id="modal-options" placeholder="ex: -i (ignore casse), -r (récursif)" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Exemple d'utilisation</label>
+                    <input type="text" id="modal-example" placeholder="ex: grep -rn 'erreur' /var/log/" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm">
+                </div>
+                <div class="pt-2 flex justify-end gap-3">
+                    <button type="button" id="cancel-cmd-modal" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm rounded-lg">Annuler</button>
+                    <button type="submit" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-medium text-sm rounded-lg shadow-lg shadow-sky-600/20">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-  async function loadFromGistOnStartup() {
-    const gistId = localStorage.getItem('gist_id');
-    const token = localStorage.getItem('gist_token');
-    if (!gistId) return;
+    <!-- Modal: Add New Category -->
+    <div id="cat-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
+            <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                    <i class="fa-solid fa-folder-plus text-sky-400"></i> Nouvelle Catégorie
+                </h3>
+                <button id="close-cat-modal" class="text-slate-400 hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="cat-form" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Nom de la Catégorie</label>
+                    <input type="text" id="modal-cat-name" placeholder="ex: Docker & Conteneurs" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm" required>
+                </div>
+                <div class="pt-2 flex justify-end gap-3">
+                    <button type="button" id="cancel-cat-modal" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm rounded-lg">Annuler</button>
+                    <button type="submit" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-medium text-sm rounded-lg shadow-lg shadow-sky-600/20">Créer</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-    try {
-      const headers = token ? { 'Authorization': `token ${token}` } : {};
-      const res = await fetch(`https://api.github.com/gists/${gistId}`, { headers });
-      if (res.ok) {
-        const gist = await res.json();
-        const file = gist.files['commandes_linux.json'] || Object.values(gist.files)[0];
-        if (file && file.content) {
-          const data = JSON.parse(file.content);
-          renderDataStructure(data);
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Initial Default Data
+        const DEFAULT_DATA = [
+            {
+                id: "cat_1",
+                name: "📂 Navigation & Fichiers",
+                commands: [
+                    { id: "cmd_1", name: "ls", desc: "Lister le contenu d'un répertoire", options: "-l (détails), -a (fichiers cachés), -h (taille lisible)", example: "ls -la" },
+                    { id: "cmd_2", name: "cd", desc: "Changer de répertoire", options: ".. (dossier parent), ~ (dossier pers.), - (dossier précédent)", example: "cd /var/log" },
+                    { id: "cmd_3", name: "pwd", desc: "Afficher le répertoire courant", options: "-P (chemin physique réel)", example: "pwd" },
+                    { id: "cmd_4", name: "mkdir", desc: "Créer un dossier", options: "-p (crée toute l'arborescence parente)", example: "mkdir -p projet/src/components" },
+                    { id: "cmd_5", name: "cp", desc: "Copier des fichiers/dossiers", options: "-r (récursif), -i (demander confirmation)", example: "cp -r dossier_src/ dossier_dst/" },
+                    { id: "cmd_6", name: "mv", desc: "Déplacer ou renommer un fichier", options: "-i (confirmation avant écrasement)", example: "mv fichier.txt /tmp/" },
+                    { id: "cmd_7", name: "rm", desc: "Supprimer des fichiers/dossiers", options: "-r (dossiers récursif), -f (forcer)", example: "rm -rf dossier_inutile/" },
+                    { id: "cmd_8", name: "find", desc: "Rechercher des fichiers dans l'arborescence", options: "-name 'motif', -type f/d, -mtime -N", example: "find . -name '*.log' -type f" }
+                ]
+            },
+            {
+                id: "cat_2",
+                name: "🔍 Lecture & Édition",
+                commands: [
+                    { id: "cmd_9", name: "cat", desc: "Afficher le contenu d'un fichier", options: "-n (numéroter les lignes)", example: "cat config.conf" },
+                    { id: "cmd_10", name: "less", desc: "Lire un fichier de façon interactive", options: "Touches: q (quitter), / (chercher motif)", example: "less /var/log/syslog" },
+                    { id: "cmd_11", name: "head / tail", desc: "Afficher le début ou la fin d'un fichier", options: "-n X (X lignes), -f (tail: suivi live)", example: "tail -f -n 50 /var/log/syslog" },
+                    { id: "cmd_12", name: "grep", desc: "Rechercher du texte dans des contenus", options: "-i (sans casse), -r (récursif), -n (num. ligne)", example: "grep -rn 'erreur' /var/log/" },
+                    { id: "cmd_13", name: "nano / vim", desc: "Éditeurs de texte dans le terminal", options: "Ctrl+O (sauver nano), :wq (sauver vim)", example: "nano /etc/hosts" }
+                ]
+            },
+            {
+                id: "cat_3",
+                name: "⚙️ Système & Processus",
+                commands: [
+                    { id: "cmd_14", name: "htop / top", desc: "Superviser les ressources & processus en direct", options: "Interactif (tri CPU, RAM, recherche)", example: "htop" },
+                    { id: "cmd_15", name: "ps", desc: "Lister les processus actifs", options: "aux (tous les processus en détails)", example: "ps aux | grep python" },
+                    { id: "cmd_16", name: "kill / killall", desc: "Arrêter un ou plusieurs processus", options: "-9 (forcer l'arrêt immédiat)", example: "kill -9 1234" },
+                    { id: "cmd_17", name: "df", desc: "Afficher l'espace disque disponible", options: "-h (lisible Mo/Go), -T (type de FS)", example: "df -h" },
+                    { id: "cmd_18", name: "du", desc: "Estimer la taille d'un dossier", options: "-s (total seul), -h (lisible Mo/Go)", example: "du -sh /var/www/" },
+                    { id: "cmd_19", name: "free", desc: "Afficher l'utilisation de la mémoire RAM", options: "-h (lisible Mo/Go), -m (en Mo)", example: "free -h" }
+                ]
+            },
+            {
+                id: "cat_4",
+                name: "🔐 Permissions & Droits",
+                commands: [
+                    { id: "cmd_20", name: "chmod", desc: "Modifier les permissions d'un fichier", options: "+x (exécutable), -R (récursif), 755 / 644", example: "chmod +x script.sh" },
+                    { id: "cmd_21", name: "chown", desc: "Modifier le propriétaire / groupe", options: "-R (récursif)", example: "chown -R www-data:www-data /var/www/" },
+                    { id: "cmd_22", name: "sudo", desc: "Exécuter une commande avec droits root", options: "-i (ouvrir session root)", example: "sudo apt update" }
+                ]
+            },
+            {
+                id: "cat_5",
+                name: "🌐 Réseau & Transfert",
+                commands: [
+                    { id: "cmd_23", name: "ping", desc: "Tester l'accessibilité d'un hôte réseau", options: "-c N (limiter à N envois)", example: "ping -c 4 google.com" },
+                    { id: "cmd_24", name: "curl / wget", desc: "Requêtes HTTP & Téléchargements", options: "-O (curl: garder le nom), -I (en-têtes)", example: "curl -O https://exemple.com/f.zip" },
+                    { id: "cmd_25", name: "ss / netstat", desc: "Statistiques réseau et ports ouverts", options: "-tulpn (ports TCP/UDP écoute + PID)", example: "ss -tulpn" },
+                    { id: "cmd_26", name: "ssh", desc: "Connexion sécurisée à un serveur distant", options: "-p PORT (port spécifique), -i (clé SSH)", example: "ssh user@192.168.1.50" }
+                ]
+            }
+        ];
+
+        // State Variables
+        let linuxData = [];
+
+        const categoriesContainer = document.getElementById('categories-container');
+        const searchInput = document.getElementById('search-input');
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-msg');
+
+        // Modal Elements
+        const cmdModal = document.getElementById('cmd-modal');
+        const catModal = document.getElementById('cat-modal');
+        const addCmdBtn = document.getElementById('add-cmd-btn');
+        const addCatBtn = document.getElementById('add-cat-btn');
+        const closeCmdModal = document.getElementById('close-cmd-modal');
+        const cancelCmdModal = document.getElementById('cancel-cmd-modal');
+        const closeCatModal = document.getElementById('close-cat-modal');
+        const cancelCatModal = document.getElementById('cancel-cat-modal');
+        const cmdForm = document.getElementById('cmd-form');
+        const catForm = document.getElementById('cat-form');
+        const modalCategorySelect = document.getElementById('modal-category');
+
+        function initData() {
+            const saved = localStorage.getItem('linux_memo_data');
+            if (saved) {
+                try {
+                    linuxData = JSON.parse(saved);
+                } catch (e) {
+                    console.error("Erreur de lecture du localStorage, chargement par défaut", e);
+                    linuxData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+                }
+            } else {
+                linuxData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+            }
+            renderApp();
         }
-      }
-    } catch (err) {
-      console.warn('Impossible de charger automatiquement le Gist:', err);
-    }
-  }
 
-  async function saveToGist() {
-    const gistId = localStorage.getItem('gist_id');
-    const token = localStorage.getItem('gist_token');
-
-    if (!gistId || !token) {
-      alert('Veuillez configurer l\'ID du Gist et votre Token via le bouton "⚙️ Config Gist".');
-      toggleConfigModal();
-      return;
-    }
-
-    const data = getDataStructure();
-    const payload = {
-      files: {
-        'commandes_linux.json': {
-          content: JSON.stringify(data, null, 2)
+        function saveData() {
+            localStorage.setItem('linux_memo_data', JSON.stringify(linuxData));
         }
-      }
-    };
 
-    try {
-      const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-        method: 'PATCH',
-        headers: {
-          'Authorization': `token ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
+        function showToast(message, isError = false) {
+            toastMsg.textContent = message;
+            const icon = document.getElementById('toast-icon');
+            if (isError) {
+                icon.className = "fa-solid fa-triangle-exclamation text-rose-400";
+            } else {
+                icon.className = "fa-solid fa-check-circle text-emerald-400";
+            }
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
 
-      if (res.ok) {
-        alert('✅ Modifications enregistrées et synchronisées sur GitHub Gist !');
-      } else {
-        const err = await res.json();
-        alert(`❌ Échec de la sauvegarde : ${err.message}`);
-      }
-    } catch (err) {
-      alert(`Erreur réseau : ${err.message}`);
-    }
-  }
-</script>
+        function renderApp() {
+            const query = searchInput.value.toLowerCase().trim();
+            categoriesContainer.innerHTML = '';
 
+            let matchesCount = 0;
+
+            linuxData.forEach((category) => {
+                // Filter commands based on search
+                const filteredCommands = category.commands.filter(cmd => 
+                    cmd.name.toLowerCase().includes(query) ||
+                    cmd.desc.toLowerCase().includes(query) ||
+                    cmd.options.toLowerCase().includes(query) ||
+                    cmd.example.toLowerCase().includes(query)
+                );
+
+                if (query && filteredCommands.length === 0) return;
+
+                matchesCount += filteredCommands.length;
+
+                // Category Card
+                const catCard = document.createElement('div');
+                catCard.className = "bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg transition";
+
+                // Category Header
+                const catHeader = document.createElement('div');
+                catHeader.className = "px-6 py-4 bg-slate-900/60 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3";
+                
+                catHeader.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span contenteditable="true" data-cat-id="${category.id}" class="cat-title-edit text-lg font-bold text-sky-400 hover:bg-slate-800/50 px-2 py-1 rounded">
+                            ${escapeHTML(category.name)}
+                        </span>
+                        <span class="text-xs text-slate-500 bg-slate-800 px-2.5 py-1 rounded-full font-medium">
+                            ${filteredCommands.length} commande${filteredCommands.length > 1 ? 's' : ''}
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="openAddCmdModal('${category.id}')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-plus text-sky-400"></i> Commande
+                        </button>
+                        <button onclick="deleteCategory('${category.id}')" class="text-xs bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-2.5 py-1.5 rounded-lg border border-rose-500/20 transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-trash-can"></i> Supprimer
+                        </button>
+                    </div>
+                `;
+
+                catCard.appendChild(catHeader);
+
+                // Commands Table
+                const tableContainer = document.createElement('div');
+                tableContainer.className = "overflow-x-auto";
+
+                const table = document.createElement('table');
+                table.className = "w-full text-left border-collapse";
+
+                table.innerHTML = `
+                    <thead>
+                        <tr class="border-b border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider bg-slate-950/40">
+                            <th class="py-3 px-6 w-1/6">Commande</th>
+                            <th class="py-3 px-6 w-2/6">Utilité</th>
+                            <th class="py-3 px-6 w-2/6">Options utiles</th>
+                            <th class="py-3 px-6 w-2/6">Exemple</th>
+                            <th class="py-3 px-4 w-12 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 text-sm">
+                    </tbody>
+                `;
+
+                const tbody = table.querySelector('tbody');
+
+                filteredCommands.forEach(cmd => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-800/40 transition group";
+
+                    tr.innerHTML = `
+                        <td class="py-3.5 px-6 font-mono">
+                            <span contenteditable="true" data-cmd-id="${cmd.id}" data-field="name" class="cmd-badge cmd-field-edit">
+                                ${escapeHTML(cmd.name)}
+                            </span>
+                        </td>
+                        <td class="py-3.5 px-6 text-slate-200">
+                            <span contenteditable="true" data-cmd-id="${cmd.id}" data-field="desc" class="cmd-field-edit block hover:bg-slate-800/50 p-1 rounded">
+                                ${escapeHTML(cmd.desc)}
+                            </span>
+                        </td>
+                        <td class="py-3.5 px-6 text-amber-200/90 font-mono text-xs">
+                            <span contenteditable="true" data-cmd-id="${cmd.id}" data-field="options" class="opt-badge cmd-field-edit block hover:bg-slate-800/50 p-1 rounded">
+                                ${escapeHTML(cmd.options)}
+                            </span>
+                        </td>
+                        <td class="py-3.5 px-6 font-mono">
+                            <span contenteditable="true" data-cmd-id="${cmd.id}" data-field="example" class="ex-badge cmd-field-edit hover:bg-slate-800/50">
+                                ${escapeHTML(cmd.example)}
+                            </span>
+                        </td>
+                        <td class="py-3.5 px-4 text-center">
+                            <button onclick="deleteCommand('${category.id}', '${cmd.id}')" class="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-rose-400 p-1.5 transition">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </td>
+                    `;
+
+                    tbody.appendChild(tr);
+                });
+
+                tableContainer.appendChild(table);
+                catCard.appendChild(tableContainer);
+                categoriesContainer.appendChild(catCard);
+            });
+
+            if (matchesCount === 0 && query !== '') {
+                categoriesContainer.innerHTML = `
+                    <div class="text-center py-12 bg-slate-900/50 border border-slate-800 rounded-2xl">
+                        <i class="fa-solid fa-magnifying-glass text-4xl text-slate-600 mb-3"></i>
+                        <p class="text-slate-400 text-base font-medium">Aucune commande trouvée pour "${escapeHTML(query)}"</p>
+                        <p class="text-xs text-slate-500 mt-1">Essayez un autre mot-clé ou ajoutez la commande.</p>
+                    </div>
+                `;
+            }
+
+            attachEditableListeners();
+        }
+
+        // Helper to avoid HTML injection
+        function escapeHTML(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function attachEditableListeners() {
+            // Category title edit
+            document.querySelectorAll('.cat-title-edit').forEach(elem => {
+                elem.addEventListener('blur', (e) => {
+                    const catId = e.target.getAttribute('data-cat-id');
+                    const newTitle = e.target.innerText.trim();
+                    const cat = linuxData.find(c => c.id === catId);
+                    if (cat && newTitle) {
+                        cat.name = newTitle;
+                        saveData();
+                        showToast("Catégorie mise à jour");
+                    }
+                });
+            });
+
+            // Command field edit
+            document.querySelectorAll('.cmd-field-edit').forEach(elem => {
+                elem.addEventListener('blur', (e) => {
+                    const cmdId = e.target.getAttribute('data-cmd-id');
+                    const field = e.target.getAttribute('data-field');
+                    const newValue = e.target.innerText.trim();
+
+                    for (let cat of linuxData) {
+                        let cmd = cat.commands.find(c => c.id === cmdId);
+                        if (cmd) {
+                            cmd[field] = newValue;
+                            saveData();
+                            showToast("Modifications enregistrées");
+                            break;
+                        }
+                    }
+                });
+
+                // Prevent enter creating new lines in single fields
+                elem.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        e.target.blur();
+                    }
+                });
+            });
+        }
+
+        function deleteCommand(catId, cmdId) {
+            const cat = linuxData.find(c => c.id === catId);
+            if (cat) {
+                cat.commands = cat.commands.filter(c => c.id !== cmdId);
+                saveData();
+                renderApp();
+                showToast("Commande supprimée");
+            }
+        }
+
+        function deleteCategory(catId) {
+            if (confirm("Voulez-vous vraiment supprimer cette catégorie et toutes ses commandes ?")) {
+                linuxData = linuxData.filter(c => c.id !== catId);
+                saveData();
+                renderApp();
+                showToast("Catégorie supprimée");
+            }
+        }
+
+        function populateCategorySelect() {
+            modalCategorySelect.innerHTML = '';
+            linuxData.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat.id;
+                opt.textContent = cat.name;
+                modalCategorySelect.appendChild(opt);
+            });
+        }
+
+        function openAddCmdModal(selectedCatId = null) {
+            populateCategorySelect();
+            if (selectedCatId) {
+                modalCategorySelect.value = selectedCatId;
+            }
+            cmdModal.classList.remove('hidden');
+        }
+
+        // Modal Close logic
+        closeCmdModal.onclick = () => cmdModal.classList.add('hidden');
+        cancelCmdModal.onclick = () => cmdModal.classList.add('hidden');
+        closeCatModal.onclick = () => catModal.classList.add('hidden');
+        cancelCatModal.onclick = () => catModal.classList.add('hidden');
+
+        addCmdBtn.onclick = () => openAddCmdModal();
+        addCatBtn.onclick = () => catModal.classList.remove('hidden');
+
+        // Submit New Command Form
+        cmdForm.onsubmit = (e) => {
+            e.preventDefault();
+            const catId = modalCategorySelect.value;
+            const name = document.getElementById('modal-cmd').value.trim();
+            const desc = document.getElementById('modal-desc').value.trim();
+            const options = document.getElementById('modal-options').value.trim() || "-";
+            const example = document.getElementById('modal-example').value.trim() || name;
+
+            const cat = linuxData.find(c => c.id === catId);
+            if (cat) {
+                cat.commands.push({
+                    id: "cmd_" + Date.now(),
+                    name,
+                    desc,
+                    options,
+                    example
+                });
+                saveData();
+                renderApp();
+                cmdModal.classList.add('hidden');
+                cmdForm.reset();
+                showToast("Nouvelle commande ajoutée !");
+            }
+        };
+
+        // Submit New Category Form
+        catForm.onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('modal-cat-name').value.trim();
+            if (name) {
+                linuxData.push({
+                    id: "cat_" + Date.now(),
+                    name,
+                    commands: []
+                });
+                saveData();
+                renderApp();
+                catModal.classList.add('hidden');
+                catForm.reset();
+                showToast("Nouvelle catégorie créée !");
+            }
+        };
+
+        document.getElementById('export-json-btn').onclick = () => {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(linuxData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `memo_linux_${new Date().toISOString().slice(0,10)}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast("Sauvegarde exportée !");
+        };
+
+        document.getElementById('import-json-input').onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const importedData = JSON.parse(event.target.result);
+                    if (Array.isArray(importedData)) {
+                        linuxData = importedData;
+                        saveData();
+                        renderApp();
+                        showToast("Données importées avec succès !");
+                    } else {
+                        showToast("Format de fichier invalide", true);
+                    }
+                } catch (err) {
+                    showToast("Erreur lors de la lecture du fichier JSON", true);
+                }
+            };
+            reader.readAsText(file);
+        };
+
+        document.getElementById('reset-btn').onclick = () => {
+            if (confirm("Voulez-vous réinitialiser le mémo avec la liste par défaut ? Toutes vos modifications personnalisées seront effacées.")) {
+                localStorage.removeItem('linux_memo_data');
+                initData();
+                showToast("Mémo réinitialisé");
+            }
+        };
+
+        // Live Search Handler
+        searchInput.addEventListener('input', () => {
+            renderApp();
+        });
+
+        // Initialize App on Page Load
+        window.onload = () => {
+            initData();
+        };
+    </script>
 </body>
 </html>
