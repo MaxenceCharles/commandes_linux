@@ -101,9 +101,6 @@
                         <i class="fa-solid fa-upload text-amber-400"></i> Importer
                         <input type="file" id="import-json-input" accept=".json" class="hidden">
                     </label>
-                    <button id="reset-btn" class="px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-sm font-medium rounded-lg border border-rose-500/20 transition flex items-center gap-2">
-                        <i class="fa-solid fa-rotate-left"></i> Réinitialiser
-                    </button>
                 </div>
             </div>
 
@@ -632,14 +629,6 @@
                 }
             };
             reader.readAsText(file);
-        };
-
-        document.getElementById('reset-btn').onclick = () => {
-            if (confirm("Voulez-vous réinitialiser le mémo avec la liste par défaut ? Toutes vos modifications personnalisées seront effacées.")) {
-                localStorage.removeItem('linux_memo_data');
-                initData();
-                showToast("Mémo réinitialisé");
-            }
         };
 
         // Live Search Handler
