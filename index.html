@@ -195,66 +195,6 @@
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Initial Default Data
-        const DEFAULT_DATA = [
-            {
-                id: "cat_1",
-                name: "📂 Navigation & Fichiers",
-                commands: [
-                    { id: "cmd_1", name: "ls", desc: "Lister le contenu d'un répertoire", options: "-l (détails), -a (fichiers cachés), -h (taille lisible)", example: "ls -la" },
-                    { id: "cmd_2", name: "cd", desc: "Changer de répertoire", options: ".. (dossier parent), ~ (dossier pers.), - (dossier précédent)", example: "cd /var/log" },
-                    { id: "cmd_3", name: "pwd", desc: "Afficher le répertoire courant", options: "-P (chemin physique réel)", example: "pwd" },
-                    { id: "cmd_4", name: "mkdir", desc: "Créer un dossier", options: "-p (crée toute l'arborescence parente)", example: "mkdir -p projet/src/components" },
-                    { id: "cmd_5", name: "cp", desc: "Copier des fichiers/dossiers", options: "-r (récursif), -i (demander confirmation)", example: "cp -r dossier_src/ dossier_dst/" },
-                    { id: "cmd_6", name: "mv", desc: "Déplacer ou renommer un fichier", options: "-i (confirmation avant écrasement)", example: "mv fichier.txt /tmp/" },
-                    { id: "cmd_7", name: "rm", desc: "Supprimer des fichiers/dossiers", options: "-r (dossiers récursif), -f (forcer)", example: "rm -rf dossier_inutile/" },
-                    { id: "cmd_8", name: "find", desc: "Rechercher des fichiers dans l'arborescence", options: "-name 'motif', -type f/d, -mtime -N", example: "find . -name '*.log' -type f" }
-                ]
-            },
-            {
-                id: "cat_2",
-                name: "🔍 Lecture & Édition",
-                commands: [
-                    { id: "cmd_9", name: "cat", desc: "Afficher le contenu d'un fichier", options: "-n (numéroter les lignes)", example: "cat config.conf" },
-                    { id: "cmd_10", name: "less", desc: "Lire un fichier de façon interactive", options: "Touches: q (quitter), / (chercher motif)", example: "less /var/log/syslog" },
-                    { id: "cmd_11", name: "head / tail", desc: "Afficher le début ou la fin d'un fichier", options: "-n X (X lignes), -f (tail: suivi live)", example: "tail -f -n 50 /var/log/syslog" },
-                    { id: "cmd_12", name: "grep", desc: "Rechercher du texte dans des contenus", options: "-i (sans casse), -r (récursif), -n (num. ligne)", example: "grep -rn 'erreur' /var/log/" },
-                    { id: "cmd_13", name: "nano / vim", desc: "Éditeurs de texte dans le terminal", options: "Ctrl+O (sauver nano), :wq (sauver vim)", example: "nano /etc/hosts" }
-                ]
-            },
-            {
-                id: "cat_3",
-                name: "⚙️ Système & Processus",
-                commands: [
-                    { id: "cmd_14", name: "htop / top", desc: "Superviser les ressources & processus en direct", options: "Interactif (tri CPU, RAM, recherche)", example: "htop" },
-                    { id: "cmd_15", name: "ps", desc: "Lister les processus actifs", options: "aux (tous les processus en détails)", example: "ps aux | grep python" },
-                    { id: "cmd_16", name: "kill / killall", desc: "Arrêter un ou plusieurs processus", options: "-9 (forcer l'arrêt immédiat)", example: "kill -9 1234" },
-                    { id: "cmd_17", name: "df", desc: "Afficher l'espace disque disponible", options: "-h (lisible Mo/Go), -T (type de FS)", example: "df -h" },
-                    { id: "cmd_18", name: "du", desc: "Estimer la taille d'un dossier", options: "-s (total seul), -h (lisible Mo/Go)", example: "du -sh /var/www/" },
-                    { id: "cmd_19", name: "free", desc: "Afficher l'utilisation de la mémoire RAM", options: "-h (lisible Mo/Go), -m (en Mo)", example: "free -h" }
-                ]
-            },
-            {
-                id: "cat_4",
-                name: "🔐 Permissions & Droits",
-                commands: [
-                    { id: "cmd_20", name: "chmod", desc: "Modifier les permissions d'un fichier", options: "+x (exécutable), -R (récursif), 755 / 644", example: "chmod +x script.sh" },
-                    { id: "cmd_21", name: "chown", desc: "Modifier le propriétaire / groupe", options: "-R (récursif)", example: "chown -R www-data:www-data /var/www/" },
-                    { id: "cmd_22", name: "sudo", desc: "Exécuter une commande avec droits root", options: "-i (ouvrir session root)", example: "sudo apt update" }
-                ]
-            },
-            {
-                id: "cat_5",
-                name: "🌐 Réseau & Transfert",
-                commands: [
-                    { id: "cmd_23", name: "ping", desc: "Tester l'accessibilité d'un hôte réseau", options: "-c N (limiter à N envois)", example: "ping -c 4 google.com" },
-                    { id: "cmd_24", name: "curl / wget", desc: "Requêtes HTTP & Téléchargements", options: "-O (curl: garder le nom), -I (en-têtes)", example: "curl -O https://exemple.com/f.zip" },
-                    { id: "cmd_25", name: "ss / netstat", desc: "Statistiques réseau et ports ouverts", options: "-tulpn (ports TCP/UDP écoute + PID)", example: "ss -tulpn" },
-                    { id: "cmd_26", name: "ssh", desc: "Connexion sécurisée à un serveur distant", options: "-p PORT (port spécifique), -i (clé SSH)", example: "ssh user@192.168.1.50" }
-                ]
-            }
-        ];
-
         // State Variables
         let linuxData = [];
 
