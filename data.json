@@ -210,5 +210,18 @@
         "example": "ssh user@192.168.1.50"
       }
     ]
+  },
+  {
+    "id": "cat_1790195972248",
+    "name": "🧰 Aides",
+    "commands": [
+      {
+        "id": "cmd_1790196001032",
+        "name": "man",
+        "desc": "Afficher les détails pour une commande externe au shell",
+        "options": "-",
+        "example": "man grep"
+      }
+    ]
   }
 ]
