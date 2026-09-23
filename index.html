@@ -197,6 +197,7 @@
     </div>
 
     <!-- JavaScript Application Logic -->
+<!-- JavaScript Application Logic -->
     <script>
         // State Variables
         let linuxData = [];
@@ -221,10 +222,10 @@
 
         // CONFIGURATION GITHUB
         const GITHUB_CONFIG = {
-            owner: "VOTRE_PSEUDO_GITHUB", // ⚠️ À modifier
-            repo: "VOTRE_NOM_DE_REPO",    // ⚠️ À modifier
+            owner: "MaxenceCharles", 
+            repo: "commandes_linux",    
             filePath: "data.json",
-            branch: "main"                 // ou "master"
+            branch: "main"                 
         };
 
         // 1. CHARGEMENT DES DONNÉES DEPUIS GITHUB
@@ -258,7 +259,7 @@
 
             // Demande le token à l'utilisateur s'il n'est pas encore enregistré
             if (!token) {
-                token = prompt("Entre ton Personal Access Token GitHub (ghp_...) :");
+                token = prompt("Entre ton Personal Access Token GitHub (ghp_... ou github_pat_...) :");
                 if (!token) return showToast("Publication annulée (token requis)", true);
                 localStorage.setItem('gh_pat_token', token.trim());
             }
@@ -316,29 +317,6 @@
             }
         }
 
-        async function publishToGitHub() {
-            try {
-                showToast("Publication sur GitHub en cours...");
-                
-                const res = await fetch('/.netlify/functions/save-data', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(linuxData)
-                });
-
-                const result = await res.json();
-
-                if (res.ok) {
-                    showToast("Toutes les modifications sont publiées sur GitHub !");
-                } else {
-                    showToast("Erreur GitHub : " + (result.error || "Échec"), true);
-                }
-            } catch (err) {
-                console.error("Erreur de publication :", err);
-                showToast("Erreur réseau lors de la publication", true);
-            }
-        }
-
         function showToast(message, isError = false) {
             toastMsg.textContent = message;
             const icon = document.getElementById('toast-icon');
@@ -360,7 +338,6 @@
             let matchesCount = 0;
 
             linuxData.forEach((category) => {
-                // Filter commands based on search
                 const filteredCommands = category.commands.filter(cmd => 
                     cmd.name.toLowerCase().includes(query) ||
                     cmd.desc.toLowerCase().includes(query) ||
@@ -372,11 +349,9 @@
 
                 matchesCount += filteredCommands.length;
 
-                // Category Card
                 const catCard = document.createElement('div');
                 catCard.className = "bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg transition";
 
-                // Category Header
                 const catHeader = document.createElement('div');
                 catHeader.className = "px-6 py-4 bg-slate-900/60 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3";
                 
@@ -401,7 +376,6 @@
 
                 catCard.appendChild(catHeader);
 
-                // Commands Table
                 const tableContainer = document.createElement('div');
                 tableContainer.className = "overflow-x-auto";
 
@@ -477,13 +451,11 @@
             attachEditableListeners();
         }
 
-        // Helper to avoid HTML injection
         function escapeHTML(str) {
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
 
         function attachEditableListeners() {
-            // Category title edit
             document.querySelectorAll('.cat-title-edit').forEach(elem => {
                 elem.addEventListener('blur', (e) => {
                     const catId = e.target.getAttribute('data-cat-id');
@@ -497,7 +469,6 @@
                 });
             });
 
-            // Command field edit
             document.querySelectorAll('.cmd-field-edit').forEach(elem => {
                 elem.addEventListener('blur', (e) => {
                     const cmdId = e.target.getAttribute('data-cmd-id');
@@ -515,7 +486,6 @@
                     }
                 });
 
-                // Prevent enter creating new lines in single fields
                 elem.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') {
                         e.preventDefault();
@@ -562,7 +532,6 @@
             cmdModal.classList.remove('hidden');
         }
 
-        // Modal Close logic
         closeCmdModal.onclick = () => cmdModal.classList.add('hidden');
         cancelCmdModal.onclick = () => cmdModal.classList.add('hidden');
         closeCatModal.onclick = () => catModal.classList.add('hidden');
@@ -571,7 +540,6 @@
         addCmdBtn.onclick = () => openAddCmdModal();
         addCatBtn.onclick = () => catModal.classList.remove('hidden');
 
-        // Submit New Command Form
         cmdForm.onsubmit = (e) => {
             e.preventDefault();
             const catId = modalCategorySelect.value;
@@ -597,7 +565,6 @@
             }
         };
 
-        // Submit New Category Form
         catForm.onsubmit = (e) => {
             e.preventDefault();
             const name = document.getElementById('modal-cat-name').value.trim();
@@ -649,12 +616,10 @@
             reader.readAsText(file);
         };
 
-        // Live Search Handler
         searchInput.addEventListener('input', () => {
             renderApp();
         });
 
-        // Initialize App on Page Load
         window.onload = () => {
             initData();
         };
