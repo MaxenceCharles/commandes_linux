@@ -101,6 +101,9 @@
                         <i class="fa-solid fa-upload text-amber-400"></i> Importer
                         <input type="file" id="import-json-input" accept=".json" class="hidden">
                     </label>
+                    <button id="publish-btn" onclick="publishToGitHub()" class="px-3 py-2 bg-sky-600 hover:bg-sky-500 text-white text-sm font-medium rounded-lg shadow-lg shadow-sky-600/20 transition flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Enregistrer sur GitHub
+                    </button>
                 </div>
             </div>
 
@@ -235,7 +238,8 @@
             renderApp();
         }
 
-        async function saveData() {
+        //Méthode de sauvegarde après chaque modification
+        /*async function saveData() {
             // Sauvegarde locale de sécurité
             localStorage.setItem('linux_memo_data', JSON.stringify(linuxData));
 
@@ -258,6 +262,34 @@
             } catch (err) {
                 console.error(err);
                 showToast("Erreur réseau lors de la sauvegarde", true);
+            }
+        }*/
+
+        function saveData() {
+            // Sauvegarde en mémoire locale (instantanée, 0 réseau)
+            localStorage.setItem('linux_memo_data', JSON.stringify(linuxData));
+        }
+
+        async function publishToGitHub() {
+            try {
+                showToast("Publication sur GitHub en cours...");
+                
+                const res = await fetch('/.netlify/functions/save-data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(linuxData)
+                });
+
+                const result = await res.json();
+
+                if (res.ok) {
+                    showToast("Toutes les modifications sont publiées sur GitHub !");
+                } else {
+                    showToast("Erreur GitHub : " + (result.error || "Échec"), true);
+                }
+            } catch (err) {
+                console.error("Erreur de publication :", err);
+                showToast("Erreur réseau lors de la publication", true);
             }
         }
 

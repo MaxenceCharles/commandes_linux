@@ -51,7 +51,7 @@ exports.handler = async (event) => {
         'Accept': 'application/vnd.github.v3+json'
       },
       body: JSON.stringify({
-        message: 'Mise à jour automatique des données depuis le site',
+        message: 'Mise à jour manuelle des commandes [skip ci]',
         content: contentBase64,
         sha: currentSha,
         branch: BRANCH
