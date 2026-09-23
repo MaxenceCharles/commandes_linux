@@ -15,8 +15,8 @@
       --cmd-color: #f43f5e;
       --opt-color: #fbbf24;
       --border-color: #334155;
-      --success: #22c55e;
       --danger: #ef4444;
+      --success: #22c55e;
     }
 
     body {
@@ -129,6 +129,7 @@
       text-align: left;
       padding: 10px;
       border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
     }
 
     th {
@@ -198,18 +199,20 @@
   <header>
     <h1>🐧 Aide-mémoire Commandes Linux</h1>
     <div class="toolbar">
-      <button onclick="toggleConfigModal()">⚙️ Config GitHub</button>
-      <button class="primary" onclick="saveToGitHub()">☁️ Sauvegarder sur GitHub</button>
+      <button onclick="toggleConfigModal()">⚙️ Config Gist</button>
+      <button class="primary" onclick="saveToGist()">☁️ Enregistrer sur Gist</button>
+      <button onclick="exportJSON()">📥 Exporter JSON</button>
+      <button onclick="triggerImport()">📤 Importer JSON</button>
+      <input type="file" id="importInput" style="display: none;" accept=".json" onchange="importJSON(event)">
       <button onclick="addCategory()">+ Nouvelle catégorie</button>
     </div>
   </header>
 
   <div class="search-box">
-    <input type="text" id="searchInput" onkeyup="filterCommands()" placeholder="Rechercher une commande, une option...">
+    <input type="text" id="searchInput" onkeyup="filterCommands()" placeholder="Rechercher une commande, une option, un exemple...">
   </div>
 
   <div id="content">
-
     <!-- 1. Navigation et Fichiers -->
     <div class="category">
       <div class="category-header">
@@ -219,9 +222,10 @@
       <table>
         <thead>
           <tr>
-            <th style="width: 20%;">Commande</th>
-            <th style="width: 35%;">Utilité</th>
-            <th style="width: 40%;">Options & Exemples</th>
+            <th style="width: 15%;">Commande</th>
+            <th style="width: 30%;">Utilité</th>
+            <th style="width: 25%;">Options Principales</th>
+            <th style="width: 25%;">Exemples</th>
             <th style="width: 5%;"></th>
           </tr>
         </thead>
@@ -229,49 +233,29 @@
           <tr>
             <td class="cmd" contenteditable="true">ls</td>
             <td contenteditable="true">Lister le contenu d'un répertoire</td>
-            <td class="opt" contenteditable="true">ls -la (tout afficher + détails), ls -lh (tailles en Mo/Go)</td>
+            <td class="opt" contenteditable="true">-a (masqués), -l (détails), -h (tailles lisibles)</td>
+            <td contenteditable="true">ls -la /var/log</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
           <tr>
             <td class="cmd" contenteditable="true">cd</td>
             <td contenteditable="true">Changer de répertoire</td>
-            <td class="opt" contenteditable="true">cd ~ (répertoire personnel), cd - (dossier précédent)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">pwd</td>
-            <td contenteditable="true">Afficher le chemin du répertoire courant</td>
-            <td class="opt" contenteditable="true">pwd</td>
+            <td class="opt" contenteditable="true">~ (home), - (précédent)</td>
+            <td contenteditable="true">cd /var/www/html</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
           <tr>
             <td class="cmd" contenteditable="true">mkdir</td>
             <td contenteditable="true">Créer un nouveau répertoire</td>
-            <td class="opt" contenteditable="true">mkdir -p dossier/sous_dossier (créer arborescence)</td>
+            <td class="opt" contenteditable="true">-p (créer arborescence parente)</td>
+            <td contenteditable="true">mkdir -p projet/src/js</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
           <tr>
             <td class="cmd" contenteditable="true">cp</td>
             <td contenteditable="true">Copier des fichiers ou dossiers</td>
-            <td class="opt" contenteditable="true">cp -r dossier_src/ dossier_dest/ (copier un dossier)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">mv</td>
-            <td contenteditable="true">Déplacer ou renommer un fichier/dossier</td>
-            <td class="opt" contenteditable="true">mv ancien_nom nouveau_nom</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">rm</td>
-            <td contenteditable="true">Supprimer des fichiers ou dossiers</td>
-            <td class="opt" contenteditable="true">rm -rf dossier/ (suppression récursive et forcée)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">find</td>
-            <td contenteditable="true">Rechercher des fichiers dans l'arborescence</td>
-            <td class="opt" contenteditable="true">find /chemin -name "*.txt" (recherche par nom)</td>
+            <td class="opt" contenteditable="true">-r (récursif), -v (détaillé)</td>
+            <td contenteditable="true">cp -r src/ dist/</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
         </tbody>
@@ -288,211 +272,46 @@
       <table>
         <thead>
           <tr>
-            <th style="width: 20%;">Commande</th>
-            <th style="width: 35%;">Utilité</th>
-            <th style="width: 40%;">Options & Exemples</th>
+            <th style="width: 15%;">Commande</th>
+            <th style="width: 30%;">Utilité</th>
+            <th style="width: 25%;">Options Principales</th>
+            <th style="width: 25%;">Exemples</th>
             <th style="width: 5%;"></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="cmd" contenteditable="true">cat</td>
-            <td contenteditable="true">Afficher le contenu complet d'un fichier</td>
-            <td class="opt" contenteditable="true">cat -n fichier.txt (numéroter les lignes)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">less</td>
-            <td contenteditable="true">Lire un fichier page par page</td>
-            <td class="opt" contenteditable="true">less fichier.log (défilement, '/' pour chercher)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">head / tail</td>
-            <td contenteditable="true">Afficher le début ou la fin d'un fichier</td>
-            <td class="opt" contenteditable="true">tail -n 20 fichier.log, tail -f (suivre en direct)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
           <tr>
             <td class="cmd" contenteditable="true">grep</td>
-            <td contenteditable="true">Rechercher du texte dans un fichier/dossier</td>
-            <td class="opt" contenteditable="true">grep -rn "erreur" /var/log/ (recherche récursive)</td>
+            <td contenteditable="true">Rechercher du texte dans un fichier</td>
+            <td class="opt" contenteditable="true">-r (récursif), -i (insensible casse), -n (lignes)</td>
+            <td contenteditable="true">grep -rn "error" /var/log/</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
           <tr>
-            <td class="cmd" contenteditable="true">nano / vim</td>
-            <td contenteditable="true">Éditeurs de texte dans le terminal</td>
-            <td class="opt" contenteditable="true">nano fichier.txt (simple), vim fichier.txt (avancé)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
-    </div>
-
-    <!-- 3. Système et Processus -->
-    <div class="category">
-      <div class="category-header">
-        <h2 class="category-title" contenteditable="true">⚙️ 3. Système, Processus et Ressources</h2>
-        <button class="btn-danger" onclick="this.closest('.category').remove()" title="Supprimer la catégorie">✕</button>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 20%;">Commande</th>
-            <th style="width: 35%;">Utilité</th>
-            <th style="width: 40%;">Options & Exemples</th>
-            <th style="width: 5%;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="cmd" contenteditable="true">top / htop</td>
-            <td contenteditable="true">Surveillance en direct des ressources & processus</td>
-            <td class="opt" contenteditable="true">htop (interface visuelle et interactive)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">ps</td>
-            <td contenteditable="true">Lister les processus en cours d'exécution</td>
-            <td class="opt" contenteditable="true">ps aux (liste complète de tous les processus)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">kill</td>
-            <td contenteditable="true">Arrêter un processus</td>
-            <td class="opt" contenteditable="true">kill -9 PID (forcer l'arrêt d'un processus)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">df</td>
-            <td contenteditable="true">Afficher l'espace disque disponible</td>
-            <td class="opt" contenteditable="true">df -h (lisible en Mo/Go)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">du</td>
-            <td contenteditable="true">Taille occupée par un dossier ou un fichier</td>
-            <td class="opt" contenteditable="true">du -sh dossier/ (taille globale condensée)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">free</td>
-            <td contenteditable="true">Utilisation de la mémoire RAM et du Swap</td>
-            <td class="opt" contenteditable="true">free -h (affichage lisible)</td>
+            <td class="cmd" contenteditable="true">tail</td>
+            <td contenteditable="true">Afficher la fin d'un fichier</td>
+            <td class="opt" contenteditable="true">-f (suivre en direct), -n (nb lignes)</td>
+            <td contenteditable="true">tail -f -n 50 /var/log/syslog</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
         </tbody>
       </table>
       <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
     </div>
-
-    <!-- 4. Permissions et Utilisateurs -->
-    <div class="category">
-      <div class="category-header">
-        <h2 class="category-title" contenteditable="true">🔐 4. Permissions et Utilisateurs</h2>
-        <button class="btn-danger" onclick="this.closest('.category').remove()" title="Supprimer la catégorie">✕</button>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 20%;">Commande</th>
-            <th style="width: 35%;">Utilité</th>
-            <th style="width: 40%;">Options & Exemples</th>
-            <th style="width: 5%;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="cmd" contenteditable="true">chmod</td>
-            <td contenteditable="true">Modifier les droits/permissions d'accès</td>
-            <td class="opt" contenteditable="true">chmod +x script.sh, chmod 755 dossier</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">chown</td>
-            <td contenteditable="true">Modifier le propriétaire et le groupe</td>
-            <td class="opt" contenteditable="true">chown user:group fichier, chown -R user:group dossier/</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">sudo</td>
-            <td contenteditable="true">Exécuter une commande avec privilèges root</td>
-            <td class="opt" contenteditable="true">sudo command</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
-    </div>
-
-    <!-- 5. Réseau -->
-    <div class="category">
-      <div class="category-header">
-        <h2 class="category-title" contenteditable="true">🌐 5. Réseau et Téléchargement</h2>
-        <button class="btn-danger" onclick="this.closest('.category').remove()" title="Supprimer la catégorie">✕</button>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 20%;">Commande</th>
-            <th style="width: 35%;">Utilité</th>
-            <th style="width: 40%;">Options & Exemples</th>
-            <th style="width: 5%;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="cmd" contenteditable="true">ping</td>
-            <td contenteditable="true">Tester la connectivité vers un serveur</td>
-            <td class="opt" contenteditable="true">ping -c 4 google.com (envoyer 4 paquets)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">curl / wget</td>
-            <td contenteditable="true">Télécharger un fichier ou effectuer des requêtes web</td>
-            <td class="opt" contenteditable="true">curl -I https://site.com (en-têtes HTTP), wget URL</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">ss / netstat</td>
-            <td contenteditable="true">Afficher les ports ouverts et connexions réseau</td>
-            <td class="opt" contenteditable="true">ss -tulpn (ports écoutes + processus associés)</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-          <tr>
-            <td class="cmd" contenteditable="true">ssh</td>
-            <td contenteditable="true">Connexion sécurisée à un serveur distant</td>
-            <td class="opt" contenteditable="true">ssh user@ip_serveur, ssh -i cle.pem user@ip</td>
-            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
-    </div>
-
   </div>
 </div>
 
-<!-- Modal Config -->
+<!-- Modal Config Gist -->
 <div class="modal" id="configModal">
   <div class="modal-content">
-    <h2>Configuration GitHub</h2>
+    <h2>Configuration GitHub Gist</h2>
     <div class="form-group">
-      <label>Nom d'utilisateur GitHub :</label>
-      <input type="text" id="ghUser" placeholder="ex: mon-pseudo">
-    </div>
-    <div class="form-group">
-      <label>Nom du dépôt :</label>
-      <input type="text" id="ghRepo" placeholder="ex: commandesLinux">
-    </div>
-    <div class="form-group">
-      <label>Chemin du fichier :</label>
-      <input type="text" id="ghPath" value="index.html">
+      <label>ID du Gist :</label>
+      <input type="text" id="gistId" placeholder="ex: 8f9b1c2d3e4f5a6b7c8d9e0f">
     </div>
     <div class="form-group">
       <label>Personal Access Token (ghp_...) :</label>
-      <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
+      <input type="password" id="gistToken" placeholder="ghp_xxxxxxxxxxxx">
     </div>
     <div style="display: flex; gap: 10px; justify-content: flex-end;">
       <button onclick="toggleConfigModal()">Annuler</button>
@@ -503,10 +322,9 @@
 
 <script>
   window.onload = function() {
-    document.getElementById('ghUser').value = localStorage.getItem('gh_user') || '';
-    document.getElementById('ghRepo').value = localStorage.getItem('gh_repo') || '';
-    document.getElementById('ghPath').value = localStorage.getItem('gh_path') || 'index.html';
-    document.getElementById('ghToken').value = localStorage.getItem('gh_token') || '';
+    document.getElementById('gistId').value = localStorage.getItem('gist_id') || '';
+    document.getElementById('gistToken').value = localStorage.getItem('gist_token') || '';
+    loadFromGistOnStartup();
   };
 
   function toggleConfigModal() {
@@ -515,21 +333,21 @@
   }
 
   function saveConfig() {
-    localStorage.setItem('gh_user', document.getElementById('ghUser').value.trim());
-    localStorage.setItem('gh_repo', document.getElementById('ghRepo').value.trim());
-    localStorage.setItem('gh_path', document.getElementById('ghPath').value.trim());
-    localStorage.setItem('gh_token', document.getElementById('ghToken').value.trim());
+    localStorage.setItem('gist_id', document.getElementById('gistId').value.trim());
+    localStorage.setItem('gist_token', document.getElementById('gistToken').value.trim());
     toggleConfigModal();
-    alert('Configuration enregistrée en local !');
+    alert('Identifiants enregistrés localement !');
+    loadFromGistOnStartup();
   }
 
   function addRow(button) {
     const tbody = button.previousElementSibling.querySelector('tbody');
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td class="cmd" contenteditable="true">nouvelle_commande</td>
+      <td class="cmd" contenteditable="true">cmd</td>
       <td contenteditable="true">Description...</td>
       <td class="opt" contenteditable="true">Options...</td>
+      <td contenteditable="true">Exemples...</td>
       <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
     `;
     tbody.appendChild(tr);
@@ -547,9 +365,10 @@
       <table>
         <thead>
           <tr>
-            <th style="width: 20%;">Commande</th>
-            <th style="width: 35%;">Utilité</th>
-            <th style="width: 40%;">Options & Exemples</th>
+            <th style="width: 15%;">Commande</th>
+            <th style="width: 30%;">Utilité</th>
+            <th style="width: 25%;">Options Principales</th>
+            <th style="width: 25%;">Exemples</th>
             <th style="width: 5%;"></th>
           </tr>
         </thead>
@@ -558,6 +377,7 @@
             <td class="cmd" contenteditable="true">cmd</td>
             <td contenteditable="true">Description</td>
             <td class="opt" contenteditable="true">Options</td>
+            <td contenteditable="true">Exemple</td>
             <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
           </tr>
         </tbody>
@@ -576,68 +396,154 @@
     });
   }
 
-  async function saveToGitHub() {
-    const user = localStorage.getItem('gh_user');
-    const repo = localStorage.getItem('gh_repo');
-    const path = localStorage.getItem('gh_path') || 'index.html';
-    const token = localStorage.getItem('gh_token');
+  function getDataStructure() {
+    const categories = [];
+    document.querySelectorAll('.category').forEach(catEl => {
+      const title = catEl.querySelector('.category-title').innerText.trim();
+      const commands = [];
+      catEl.querySelectorAll('tbody tr').forEach(tr => {
+        const cells = tr.querySelectorAll('td');
+        if (cells.length >= 4) {
+          commands.push({
+            cmd: cells[0].innerText.trim(),
+            utility: cells[1].innerText.trim(),
+            options: cells[2].innerText.trim(),
+            examples: cells[3].innerText.trim()
+          });
+        }
+      });
+      categories.push({ title, commands });
+    });
+    return categories;
+  }
 
-    if (!user || !repo || !token) {
-      alert('Veuillez d\'abord configurer vos identifiants via le bouton "⚙️ Config GitHub".');
+  function renderDataStructure(data) {
+    const content = document.getElementById('content');
+    content.innerHTML = '';
+    data.forEach(cat => {
+      const catEl = document.createElement('div');
+      catEl.className = 'category';
+      let rowsHTML = '';
+      cat.commands.forEach(c => {
+        rowsHTML += `
+          <tr>
+            <td class="cmd" contenteditable="true">${c.cmd}</td>
+            <td contenteditable="true">${c.utility}</td>
+            <td class="opt" contenteditable="true">${c.options}</td>
+            <td contenteditable="true">${c.examples}</td>
+            <td><button class="btn-danger" onclick="this.closest('tr').remove()">✕</button></td>
+          </tr>
+        `;
+      });
+      catEl.innerHTML = `
+        <div class="category-header">
+          <h2 class="category-title" contenteditable="true">${cat.title}</h2>
+          <button class="btn-danger" onclick="this.closest('.category').remove()">✕</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 15%;">Commande</th>
+              <th style="width: 30%;">Utilité</th>
+              <th style="width: 25%;">Options Principales</th>
+              <th style="width: 25%;">Exemples</th>
+              <th style="width: 5%;"></th>
+            </tr>
+          </thead>
+          <tbody>${rowsHTML}</tbody>
+        </table>
+        <button style="margin-top: 10px;" onclick="addRow(this)">+ Ajouter une commande</button>
+      `;
+      content.appendChild(catEl);
+    });
+  }
+
+  function exportJSON() {
+    const data = getDataStructure();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'commandes_linux.json';
+    a.click();
+  }
+
+  function triggerImport() {
+    document.getElementById('importInput').click();
+  }
+
+  function importJSON(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        renderDataStructure(data);
+      } catch (err) {
+        alert('Erreur lors de la lecture du fichier JSON : ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  async function loadFromGistOnStartup() {
+    const gistId = localStorage.getItem('gist_id');
+    const token = localStorage.getItem('gist_token');
+    if (!gistId) return;
+
+    try {
+      const headers = token ? { 'Authorization': `token ${token}` } : {};
+      const res = await fetch(`https://api.github.com/gists/${gistId}`, { headers });
+      if (res.ok) {
+        const gist = await res.json();
+        const file = gist.files['commandes_linux.json'] || Object.values(gist.files)[0];
+        if (file && file.content) {
+          const data = JSON.parse(file.content);
+          renderDataStructure(data);
+        }
+      }
+    } catch (err) {
+      console.warn('Impossible de charger automatiquement le Gist:', err);
+    }
+  }
+
+  async function saveToGist() {
+    const gistId = localStorage.getItem('gist_id');
+    const token = localStorage.getItem('gist_token');
+
+    if (!gistId || !token) {
+      alert('Veuillez configurer l\'ID du Gist et votre Token via le bouton "⚙️ Config Gist".');
       toggleConfigModal();
       return;
     }
 
-    const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+    const data = getDataStructure();
+    const payload = {
+      files: {
+        'commandes_linux.json': {
+          content: JSON.stringify(data, null, 2)
+        }
+      }
+    };
 
     try {
-      const getRes = await fetch(apiUrl, {
-        headers: { 'Authorization': `token ${token}` }
-      });
-      
-      let sha = "";
-      if (getRes.ok) {
-        const getData = await getRes.json();
-        sha = getData.sha;
-      }
-
-      document.getElementById('searchInput').value = '';
-      filterCommands();
-
-      document.getElementById('ghUser').value = '';
-      document.getElementById('ghRepo').value = '';
-      document.getElementById('ghToken').value = '';
-
-      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-
-      document.getElementById('ghUser').value = user;
-      document.getElementById('ghRepo').value = repo;
-      document.getElementById('ghToken').value = token;
-
-      const encodedContent = btoa(unescape(encodeURIComponent(htmlContent)));
-
-      const putRes = await fetch(apiUrl, {
-        method: 'PUT',
+      const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+        method: 'PATCH',
         headers: {
           'Authorization': `token ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          message: 'Mise à jour dynamique des commandes Linux',
-          content: encodedContent,
-          sha: sha
-        })
+        body: JSON.stringify(payload)
       });
 
-      if (putRes.ok) {
-        alert('✅ Modifications enregistrées et poussées sur GitHub avec succès !');
+      if (res.ok) {
+        alert('✅ Modifications enregistrées et synchronisées sur GitHub Gist !');
       } else {
-        const errData = await putRes.json();
-        alert(`❌ Échec de l'enregistrement : ${errData.message}`);
+        const err = await res.json();
+        alert(`❌ Échec de la sauvegarde : ${err.message}`);
       }
-
     } catch (err) {
-      alert(`Erreur réseau ou API : ${err.message}`);
+      alert(`Erreur réseau : ${err.message}`);
     }
   }
 </script>
