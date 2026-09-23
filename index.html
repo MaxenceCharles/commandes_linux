@@ -230,10 +230,9 @@
 
         // 1. CHARGEMENT DES DONNÉES DEPUIS GITHUB
         async function initData() {
-            const rawUrl = `https://raw.githubusercontent.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.filePath}?t=${Date.now()}`;
-            
+                        
             try {
-                const res = await fetch(rawUrl);
+                const res = await fetch(`./data.json?t=${Date.now()}`);
                 if (res.ok) {
                     linuxData = await res.json();
                     localStorage.setItem('linux_memo_data', JSON.stringify(linuxData));
