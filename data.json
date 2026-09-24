@@ -173,7 +173,7 @@
         "id": "cmd_16",
         "name": "kill / killall",
         "desc": "Arrêter un ou plusieurs processus",
-        "options": "-9 (forcer l'arrêt immédiat)",
+        "options": "-9 (forcer l'arrêt immédiat) -l (liste des signaux)",
         "example": "kill -9 1234"
       },
       {
@@ -231,6 +231,20 @@
         "desc": "Afficher les processus",
         "options": "-l (long)",
         "example": "ps -l"
+      },
+      {
+        "id": "cmd_1790261903428",
+        "name": "renice",
+        "desc": "Modifier la gentillesse d'un processus existant",
+        "options": "-n (niveau)",
+        "example": "renice -n 10 14353"
+      },
+      {
+        "id": "cmd_1790262052232",
+        "name": "pstree",
+        "desc": "Afficher l'arborescence des processus en cours d'exécution sous la forme d'un arbre hiérarchique",
+        "options": "-p (avec les PID) -u (changement d'utilisateur UID)",
+        "example": "pstree"
       }
     ]
   },
@@ -361,6 +375,75 @@
         "desc": "Définit ou affiche des alias (si pas d'arguments)",
         "options": "-",
         "example": "alias ll=\"ls-l\""
+      }
+    ]
+  },
+  {
+    "id": "cat_1790262189091",
+    "name": "⏩ Flux",
+    "commands": [
+      {
+        "id": "cmd_1790262220653",
+        "name": "0",
+        "desc": "Entrée standard",
+        "options": "-",
+        "example": "STDIN"
+      },
+      {
+        "id": "cmd_1790262242914",
+        "name": "1",
+        "desc": "Sortie standard",
+        "options": "-",
+        "example": "STDOUT"
+      },
+      {
+        "id": "cmd_1790262261461",
+        "name": "2",
+        "desc": "Sortie d'erreur",
+        "options": "-",
+        "example": "STDERR"
+      },
+      {
+        "id": "cmd_1790262334895",
+        "name": ">",
+        "desc": "Rediriger la sortie standard",
+        "options": "-",
+        "example": "echo test > fichier_test"
+      },
+      {
+        "id": "cmd_1790262394474",
+        "name": "2>",
+        "desc": "Rediriger la sortie d'erreur",
+        "options": "-",
+        "example": "ls fic1 fic2 2>fichier_ko"
+      },
+      {
+        "id": "cmd_1790262446816",
+        "name": ">>",
+        "desc": "Cumuler les entrées",
+        "options": "-",
+        "example": "echo test >> fichier_echo echo test >> fichier_echo"
+      },
+      {
+        "id": "cmd_1790262521807",
+        "name": "&>",
+        "desc": "Rediriger le flux de sortie et d'erreur vers la même destination",
+        "options": "-",
+        "example": "ls fic1 fic2 &>fichier_ok_ko"
+      },
+      {
+        "id": "cmd_1790262559018",
+        "name": ":>",
+        "desc": "Rediriger pour créer un fichier",
+        "options": "-",
+        "example": ":> fic"
+      },
+      {
+        "id": "cmd_1790262694519",
+        "name": "|",
+        "desc": "Pipe : Permet d'envoyer le résultat d'une commande à une autre commande (Attention : le flux d'erreur n'est pas prit en compte dans le | mais sera afficher quand même)",
+        "options": "-",
+        "example": "grep defaut | ip r"
       }
     ]
   }
