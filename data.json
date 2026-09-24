@@ -487,5 +487,25 @@
         "example": "cut -d':' -f4 fichier_test"
       }
     ]
+  },
+  {
+    "id": "cat_1790267145922",
+    "name": "🎯Recherche",
+    "commands": [
+      {
+        "id": "cmd_1790267405893",
+        "name": "locate",
+        "desc": "Rechercher un fichier par nom",
+        "options": "-i (prendren en compte la casse) -c (compte le nombre d'occurence) -f (nom plutôt que motif) -r (expression régulière)",
+        "example": "locate -i Fichier_1"
+      },
+      {
+        "id": "cmd_1790267486792",
+        "name": "plocate",
+        "desc": "Locate mais en plus rapide",
+        "options": "-",
+        "example": "plocate fichier_1"
+      }
+    ]
   }
 ]
