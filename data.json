@@ -93,6 +93,20 @@
         "desc": "Créer un lien symbolique",
         "options": "-s (symbolique)",
         "example": "ln -s fichier_1 lien_fichier_1"
+      },
+      {
+        "id": "cmd_1790250746097",
+        "name": "file",
+        "desc": "Donner des informations sur un fichier",
+        "options": "-",
+        "example": "file fichier_1"
+      },
+      {
+        "id": "cmd_1790250959348",
+        "name": "history",
+        "desc": "Equivaut à la flèche du haut pour l'historique des commandes avec date et heure de la commande",
+        "options": "-",
+        "example": "history"
       }
     ]
   },
@@ -182,6 +196,41 @@
         "desc": "Afficher l'utilisation de la mémoire RAM",
         "options": "-h (lisible Mo/Go), -m (en Mo)",
         "example": "free -h"
+      },
+      {
+        "id": "cmd_1790251400189",
+        "name": "jobs",
+        "desc": "Afficher les jobs en cours/terminés",
+        "options": "-",
+        "example": "jobs"
+      },
+      {
+        "id": "cmd_1790251535780",
+        "name": "fg",
+        "desc": "Foreground - passe le jobs en 1er plan",
+        "options": "%n (n = numéro du job à remonter) Ctrl-Z (stop le job au 1er plan)",
+        "example": "fg %2"
+      },
+      {
+        "id": "cmd_1790251630578",
+        "name": "bg",
+        "desc": "Background - Remet le job en arrière plan",
+        "options": "%n (n = le job choisit)",
+        "example": "bg %5"
+      },
+      {
+        "id": "cmd_1790252285315",
+        "name": "nice",
+        "desc": "Met un niveau de gentillesse a la commande. La gentillesse impacte le niveau de priorité (de -20 à 19 par défaut 0)). Seul root est autorisé à baisser le niveau.",
+        "options": "-n (niveau)",
+        "example": "nice -n 10"
+      },
+      {
+        "id": "cmd_1790252325584",
+        "name": "ps",
+        "desc": "Afficher les processus",
+        "options": "-l (long)",
+        "example": "ps -l"
       }
     ]
   },
@@ -209,6 +258,13 @@
         "desc": "Exécuter une commande avec droits root",
         "options": "-i (ouvrir session root)",
         "example": "sudo apt update"
+      },
+      {
+        "id": "cmd_1790251287424",
+        "name": "umask",
+        "desc": "Définir ou afficher le masque de permissions appliqué par défaut aux nouveaux fichiers et répertoires créés par un utilisateur ou un processus",
+        "options": "-S (symbolique)",
+        "example": "umask =rwx,g=rx,o="
       }
     ]
   },
