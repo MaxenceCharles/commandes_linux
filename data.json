@@ -58,6 +58,41 @@
         "desc": "Rechercher des fichiers dans l'arborescence",
         "options": "-name 'motif', -type f/d, -mtime -N",
         "example": "find . -name '*.log' -type f"
+      },
+      {
+        "id": "cmd_1790249647239",
+        "name": "df",
+        "desc": "Afficher les tailles des dossiers en Mo ou Go",
+        "options": "-h (human readable)",
+        "example": "df -f"
+      },
+      {
+        "id": "cmd_1790249930899",
+        "name": "echo",
+        "desc": "Afficher du texte, des variables ou le résultat d'une autre commande dans le terminal",
+        "options": "-e (utiliser les caractères spéciaux)        -n (empêche le saut de ligne automatique à la fin du texte                                  \\n (pour aller a la ligne)                    \\t (pour ajouter une tabulation)",
+        "example": "echo \"Ceci est un test\" > mon-fichier.txt"
+      },
+      {
+        "id": "cmd_1790250227249",
+        "name": "wc",
+        "desc": "Compter le nombre de lignes, mots, caractères dans un fichier",
+        "options": "-l (compte uniquement les lignes) -w (les mots) -c (le nombre d'octets) - m (le nombre de caractères)",
+        "example": "wc -l fichier.txt"
+      },
+      {
+        "id": "cmd_1790250390045",
+        "name": "touch",
+        "desc": "Créer un fichier s'il n'existe pas sinon, modifie les métadatas",
+        "options": "-",
+        "example": "touch fichier_1"
+      },
+      {
+        "id": "cmd_1790250495415",
+        "name": "ln",
+        "desc": "Créer un lien symbolique",
+        "options": "-s (symbolique)",
+        "example": "ln -s fichier_1 lien_fichier_1"
       }
     ]
   },
@@ -221,6 +256,55 @@
         "desc": "Afficher les détails pour une commande externe au shell",
         "options": "-",
         "example": "man grep"
+      },
+      {
+        "id": "cmd_1790249582488",
+        "name": "help",
+        "desc": "Afficher les aides pour une commande interne au shell",
+        "options": "-",
+        "example": "help cd"
+      },
+      {
+        "id": "cmd_1790249604108",
+        "name": "type",
+        "desc": "Connaitre l'origine de la commande (interne ou externe)",
+        "options": "-",
+        "example": "type grep"
+      },
+      {
+        "id": "cmd_1790249623503",
+        "name": "apropos",
+        "desc": "Afficher un motif dans le manuel de la commande man",
+        "options": "-",
+        "example": "apropos \"disk\""
+      },
+      {
+        "id": "cmd_1790249685000",
+        "name": "uname",
+        "desc": "Afficher les informations système",
+        "options": "-",
+        "example": "uname"
+      },
+      {
+        "id": "cmd_1790249737179",
+        "name": "who",
+        "desc": "Montre qui est connecté",
+        "options": "-",
+        "example": "who"
+      },
+      {
+        "id": "cmd_1790249761342",
+        "name": "whoami",
+        "desc": "Afficher le nom de l'utilisateur",
+        "options": "-",
+        "example": "whoami"
+      },
+      {
+        "id": "cmd_1790250328949",
+        "name": "alias",
+        "desc": "Définit ou affiche des alias (si pas d'arguments)",
+        "options": "-",
+        "example": "alias ll=\"ls-l\""
       }
     ]
   }
