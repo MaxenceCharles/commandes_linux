@@ -148,6 +148,13 @@
         "desc": "Éditeurs de texte dans le terminal",
         "options": "Ctrl+O (sauver nano), :wq (sauver vim)",
         "example": "nano /etc/hosts"
+      },
+      {
+        "id": "cmd_1790264012095",
+        "name": "more",
+        "desc": "Paginer le texte d'un fichier",
+        "options": "-",
+        "example": "more fichier_test"
       }
     ]
   },
@@ -444,6 +451,40 @@
         "desc": "Pipe : Permet d'envoyer le résultat d'une commande à une autre commande (Attention : le flux d'erreur n'est pas prit en compte dans le | mais sera afficher quand même)",
         "options": "-",
         "example": "grep defaut | ip r"
+      },
+      {
+        "id": "cmd_1790264759106",
+        "name": "tee",
+        "desc": "Lit depuis l'entrée standard et écrit dans la sortie standard et fichiers",
+        "options": "-a (append : ajoute le texte a la fin du fichier existant au lieu d'écraser son contenu) -i (ignore les signaux d'interruption)",
+        "example": "echo \"Nouvelle ligne\" | tee -a fichier.txt"
+      }
+    ]
+  },
+  {
+    "id": "cat_1790263811046",
+    "name": "🎣 Filtres",
+    "commands": [
+      {
+        "id": "cmd_1790263915087",
+        "name": "uniq",
+        "desc": "Permet de supprimet les doublons à l'affichage, ils ne seront pas supprimés du fichier",
+        "options": "-",
+        "example": "uniq fichier_test"
+      },
+      {
+        "id": "cmd_1790264172635",
+        "name": "sort",
+        "desc": "Trier les données d'un fichier",
+        "options": "-t\"(délimiteur)\" -k (le 1er champ, le dernier champ)",
+        "example": "sort -t';' -k3,3 fichier_test"
+      },
+      {
+        "id": "cmd_1790264434536",
+        "name": "cut",
+        "desc": "Extraire une partie des données d'un fichier",
+        "options": "-d\"(délimiteur)\" -f (numéro du champ/colonne) (ex: 3,5 champs 3 et 5 ou 3-5 du champ 3 à 5)",
+        "example": "cut -d':' -f4 fichier_test"
       }
     ]
   }
