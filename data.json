@@ -55,8 +55,8 @@
       {
         "id": "cmd_8",
         "name": "find",
-        "desc": "Rechercher des fichiers dans l'arborescence",
-        "options": "-name 'motif', -type f/d, -mtime -N",
+        "desc": "Rechercher des fichiers dans l'arborescence. find <chemins><criteres><actions>",
+        "options": "CRITERES : -name 'motif', -iname (sans casse), -user (nom ou PID), -group (nom ou PID) -type f/d/l, -mtime +/- n (dernière date de modif), -atime (dernière lecture ou ouverture), -ctime (dernière modif des métadonnées, -mmin, -amin, -cmin (même chose en minutes), -perm u=rwx, -mindepth (niveau mini), -maxdepth (niveau maxi) ACTIONS : -print (par défaut), -exec commande {} \\; (execution d'une commande), -delete (supprime), -ok (demande confirmation)",
         "example": "find . -name '*.log' -type f"
       },
       {
@@ -84,7 +84,7 @@
         "id": "cmd_1790250390045",
         "name": "touch",
         "desc": "Créer un fichier s'il n'existe pas sinon, modifie les métadatas",
-        "options": "-",
+        "options": "-m (modifie la date de la dernière modif), -t (timestamp), -d YYYYMMddHHmm(date)",
         "example": "touch fichier_1"
       },
       {
@@ -138,8 +138,8 @@
       {
         "id": "cmd_12",
         "name": "grep",
-        "desc": "Rechercher du texte dans des contenus",
-        "options": "-i (sans casse), -r (récursif), -n (num. ligne)",
+        "desc": "Rechercher du texte dans des contenus. grep <options><motif><fichier>",
+        "options": "-i (sans casse), -r (récursif), -n (num. ligne) -v (exclu de la recherche), -c (compte le nb de lignes)",
         "example": "grep -rn 'erreur' /var/log/"
       },
       {
@@ -155,6 +155,13 @@
         "desc": "Paginer le texte d'un fichier",
         "options": "-",
         "example": "more fichier_test"
+      },
+      {
+        "id": "cmd_1790336717368",
+        "name": "update_db",
+        "desc": "Met à jour la base de données (en tant que root)",
+        "options": "-",
+        "example": "update_db"
       }
     ]
   },
@@ -496,8 +503,8 @@
         "id": "cmd_1790267405893",
         "name": "locate",
         "desc": "Rechercher un fichier par nom",
-        "options": "-i (prendren en compte la casse) -c (compte le nombre d'occurence) -f (nom plutôt que motif) -r (expression régulière)",
-        "example": "locate -i Fichier_1"
+        "options": "-i (prendren en compte la casse), -c (compte le nombre d'occurence), -f (nom plutôt que motif), -r (expression régulière), -b (basename - fin arborescence)",
+        "example": "locate -i -b \"sahdow*\""
       },
       {
         "id": "cmd_1790267486792",
@@ -505,6 +512,68 @@
         "desc": "Locate mais en plus rapide",
         "options": "-",
         "example": "plocate fichier_1"
+      }
+    ]
+  },
+  {
+    "id": "cat_1790337927721",
+    "name": "🏷️ Variables",
+    "commands": [
+      {
+        "id": "cmd_1790337976369",
+        "name": "exit",
+        "desc": "Sortir du bash en cours",
+        "options": "-",
+        "example": "exit"
+      },
+      {
+        "id": "cmd_1790338003794",
+        "name": "var",
+        "desc": "Variabiliser",
+        "options": "-",
+        "example": "var=\"Bonjour\""
+      },
+      {
+        "id": "cmd_1790338063878",
+        "name": "set",
+        "desc": "Afficher/modifier les variables",
+        "options": "-v (verbose)",
+        "example": "set | grep \"LOGNAME\""
+      },
+      {
+        "id": "cmd_1790338097561",
+        "name": "set | less",
+        "desc": "Afficher les variables de bash",
+        "options": "-",
+        "example": "set | less"
+      },
+      {
+        "id": "cmd_1790338128733",
+        "name": "unset",
+        "desc": "Supprimer une variable",
+        "options": "-",
+        "example": "unset var"
+      },
+      {
+        "id": "cmd_1790338220486",
+        "name": "env",
+        "desc": "Afficher les variables d'environnement ou les commandes exportées avec export",
+        "options": "-",
+        "example": "env | less"
+      },
+      {
+        "id": "cmd_1790338325709",
+        "name": "export",
+        "desc": "Indiquer au shell qu'une var doit être copiée dans l'environnement des processus fils du shell",
+        "options": "-",
+        "example": "export var"
+      },
+      {
+        "id": "cmd_1790338405923",
+        "name": "alias",
+        "desc": "Afficher/créer un alias pour une commande",
+        "options": "-",
+        "example": "alias rm=rm -i"
       }
     ]
   }
