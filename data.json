@@ -630,6 +630,20 @@
         "desc": "Afficher tout les dossiers dans lequels ira chercher bash",
         "options": "-",
         "example": "Ajout d'une var : PATH=\"$PATH\": /etc/bin"
+      },
+      {
+        "id": "cmd_1790526777641",
+        "name": ".bashrc",
+        "desc": "Ajouter une variable dans tout les terminaux (persitante)",
+        "options": "-",
+        "example": "vim .bashrc"
+      },
+      {
+        "id": "cmd_1790527029811",
+        "name": ".bashrc.d",
+        "desc": "Ajouter des commandes qui seront executées dans chaque nouveaux terminaux par ordre alphabétique",
+        "options": "-",
+        "example": "alias rm=rm -i"
       }
     ]
   }
