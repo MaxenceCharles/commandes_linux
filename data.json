@@ -53,20 +53,6 @@
         "example": "rm -rf dossier_inutile/"
       },
       {
-        "id": "cmd_8",
-        "name": "find",
-        "desc": "Rechercher des fichiers dans l'arborescence. find <chemins><criteres><actions>",
-        "options": "CRITERES : -name 'motif', -iname (sans casse), -user (nom ou PID), -group (nom ou PID) -type f/d/l, -mtime +/- n (dernière date de modif), -atime (dernière lecture ou ouverture), -ctime (dernière modif des métadonnées, -mmin, -amin, -cmin (même chose en minutes), -perm u=rwx, -mindepth (niveau mini), -maxdepth (niveau maxi) ACTIONS : -print (par défaut), -exec commande {} \\; (execution d'une commande), -delete (supprime), -ok (demande confirmation)",
-        "example": "find . -name '*.log' -type f"
-      },
-      {
-        "id": "cmd_1790249647239",
-        "name": "df",
-        "desc": "Afficher les tailles des dossiers en Mo ou Go",
-        "options": "-h (human readable)",
-        "example": "df -f"
-      },
-      {
         "id": "cmd_1790249930899",
         "name": "echo",
         "desc": "Afficher du texte, des variables ou le résultat d'une autre commande dans le terminal",
@@ -259,6 +245,13 @@
         "desc": "Afficher l'arborescence des processus en cours d'exécution sous la forme d'un arbre hiérarchique",
         "options": "-p (avec les PID) -u (changement d'utilisateur UID)",
         "example": "pstree"
+      },
+      {
+        "id": "cmd_1790526283032",
+        "name": "sleep",
+        "desc": "Dormir un nombre de seconde",
+        "options": "-",
+        "example": "sleep 5"
       }
     ]
   },
@@ -293,6 +286,34 @@
         "desc": "Définir ou afficher le masque de permissions appliqué par défaut aux nouveaux fichiers et répertoires créés par un utilisateur ou un processus",
         "options": "-S (symbolique)",
         "example": "umask =rwx,g=rx,o="
+      },
+      {
+        "id": "cmd_1790525908759",
+        "name": "passwd",
+        "desc": "Permet de modifier le MDP user",
+        "options": "-",
+        "example": "passwd"
+      },
+      {
+        "id": "cmd_1790526071255",
+        "name": "stat",
+        "desc": "Afficher les métadonnées d'un fichier",
+        "options": "-",
+        "example": "stat Fichier_1"
+      },
+      {
+        "id": "cmd_1790526121307",
+        "name": "id",
+        "desc": "Donner l'identité d'un utilisateur et a quel groupe il appartient",
+        "options": "-",
+        "example": "id"
+      },
+      {
+        "id": "cmd_1790526187431",
+        "name": "chgrp",
+        "desc": "Permet de changer le groupe (que ceux auxquels on appartient)",
+        "options": "-",
+        "example": "chgrp root fichier"
       }
     ]
   },
@@ -327,6 +348,13 @@
         "desc": "Connexion sécurisée à un serveur distant",
         "options": "-p PORT (port spécifique), -i (clé SSH)",
         "example": "ssh user@192.168.1.50"
+      },
+      {
+        "id": "cmd_1790526011239",
+        "name": "ip",
+        "desc": "Afficher l'adresse ip",
+        "options": "-a (all - afficher toutes les ip)",
+        "example": "ip"
       }
     ]
   },
@@ -389,6 +417,20 @@
         "desc": "Définit ou affiche des alias (si pas d'arguments)",
         "options": "-",
         "example": "alias ll=\"ls-l\""
+      },
+      {
+        "id": "cmd_1790525788685",
+        "name": "whatis",
+        "desc": "Permet de voir les paragraphes d'un manuel",
+        "options": "-",
+        "example": "whatis cd"
+      },
+      {
+        "id": "cmd_1790525829211",
+        "name": "whereis",
+        "desc": "Rechercher les fichiers exécutables, les sources et les pages de manuel d'une commande",
+        "options": "-",
+        "example": "whereis cd"
       }
     ]
   },
@@ -502,7 +544,7 @@
       {
         "id": "cmd_1790267405893",
         "name": "locate",
-        "desc": "Rechercher un fichier par nom",
+        "desc": "Rechercher un fichier par nom dans tout le système",
         "options": "-i (prendren en compte la casse), -c (compte le nombre d'occurence), -f (nom plutôt que motif), -r (expression régulière), -b (basename - fin arborescence)",
         "example": "locate -i -b \"sahdow*\""
       },
@@ -512,6 +554,13 @@
         "desc": "Locate mais en plus rapide",
         "options": "-",
         "example": "plocate fichier_1"
+      },
+      {
+        "id": "cmd_1790526567467",
+        "name": "find",
+        "desc": "Rechercher des fichiers dans l'arborescence. find <chemins><criteres><actions>",
+        "options": "CRITERES : -name 'motif', -iname (sans casse), -user (nom ou PID), -group (nom ou PID) -type f/d/l, -mtime +/- n (dernière date de modif), -atime (dernière lecture ou ouverture), -ctime (dernière modif des métadonnées, -mmin, -amin, -cmin (même chose en minutes), -perm u=rwx, -mindepth (niveau mini), -maxdepth (niveau maxi) ACTIONS : -print (par défaut), -exec commande {} \\; (execution d'une commande), -delete (supprime), -ok (demande confirmation)",
+        "example": "find . -name '*.log' -type f"
       }
     ]
   },
@@ -574,6 +623,13 @@
         "desc": "Afficher/créer un alias pour une commande",
         "options": "-",
         "example": "alias rm=rm -i"
+      },
+      {
+        "id": "cmd_1790526526690",
+        "name": "$PATH",
+        "desc": "Afficher tout les dossiers dans lequels ira chercher bash",
+        "options": "-",
+        "example": "Ajout d'une var : PATH=\"$PATH\": /etc/bin"
       }
     ]
   }
