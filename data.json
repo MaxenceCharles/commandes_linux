@@ -646,5 +646,18 @@
         "example": "alias rm=rm -i"
       }
     ]
+  },
+  {
+    "id": "cat_1790604450811",
+    "name": "💾 Archivage et Compression",
+    "commands": [
+      {
+        "id": "cmd_1790604783435",
+        "name": "tar",
+        "desc": "Gérer l'archivage de fichiers",
+        "options": "-c (Créer l'archive) -v (verbose) -f (indique le fichier à utiliser Att : METTRE EN DERNIERE OPTION) -t (lister une archive) -x (extraction) -C (indique le dossier de destination) -r (rajouter des fichiers à la fin de l'archive) -P (présèrve le chemin absolue / devant) --exclude (exclure des fichiers) --delete (suppresion des fichiers d'un archive",
+        "example": "tar -cv -f monArchive.tar /home/fichier1"
+      }
+    ]
   }
 ]
