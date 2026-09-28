@@ -7,92 +7,158 @@
         "id": "cmd_1",
         "name": "ls",
         "desc": "Lister le contenu d'un répertoire",
-        "options": "-l (détails), -a (fichiers cachés), -h (taille lisible)",
-        "example": "ls -la"
+        "options": [
+          "-l (détails)",
+          "-a (fichiers cachés)",
+          "-h (taille lisible)"
+        ],
+        "example": [
+          "ls -la"
+        ]
       },
       {
         "id": "cmd_2",
         "name": "cd",
         "desc": "Changer de répertoire",
-        "options": ".. (dossier parent), ~ (dossier pers.), - (dossier précédent)",
-        "example": "cd /var/log"
+        "options": [
+          ".. (dossier parent)",
+          "~ (dossier pers.)",
+          "- (dossier précédent)"
+        ],
+        "example": [
+          "cd /var/log"
+        ]
       },
       {
         "id": "cmd_3",
         "name": "pwd",
         "desc": "Afficher le répertoire courant",
-        "options": "-P (chemin physique réel)",
-        "example": "pwd"
+        "options": [
+          "-P (chemin physique réel)"
+        ],
+        "example": [
+          "pwd"
+        ]
       },
       {
         "id": "cmd_4",
         "name": "mkdir",
         "desc": "Créer un dossier",
-        "options": "-p (crée toute l'arborescence parente)",
-        "example": "mkdir -p projet/src/components"
+        "options": [
+          "-p (crée toute l'arborescence parente)"
+        ],
+        "example": [
+          "mkdir -p projet/src/components"
+        ]
       },
       {
         "id": "cmd_5",
         "name": "cp",
         "desc": "Copier des fichiers/dossiers",
-        "options": "-r (récursif), -i (demander confirmation)",
-        "example": "cp -r dossier_src/ dossier_dst/"
+        "options": [
+          "-r (récursif)",
+          "-i (demander confirmation)"
+        ],
+        "example": [
+          "cp -r dossier_src/ dossier_dst/"
+        ]
       },
       {
         "id": "cmd_6",
         "name": "mv",
         "desc": "Déplacer ou renommer un fichier",
-        "options": "-i (confirmation avant écrasement)",
-        "example": "mv fichier.txt /tmp/"
+        "options": [
+          "-i (confirmation avant écrasement)"
+        ],
+        "example": [
+          "mv fichier.txt /tmp/"
+        ]
       },
       {
         "id": "cmd_7",
         "name": "rm",
         "desc": "Supprimer des fichiers/dossiers",
-        "options": "-r (dossiers récursif), -f (forcer)",
-        "example": "rm -rf dossier_inutile/"
+        "options": [
+          "-r (dossiers récursif)",
+          "-f (forcer)"
+        ],
+        "example": [
+          "rm -rf dossier_inutile/"
+        ]
       },
       {
         "id": "cmd_1790249930899",
         "name": "echo",
         "desc": "Afficher du texte, des variables ou le résultat d'une autre commande dans le terminal",
-        "options": "-e (utiliser les caractères spéciaux)        -n (empêche le saut de ligne automatique à la fin du texte                                  \\n (pour aller a la ligne)                    \\t (pour ajouter une tabulation)",
-        "example": "echo \"Ceci est un test\" > mon-fichier.txt"
+        "options": [
+          "-e (utiliser les caractères spéciaux)",
+          "-n (empêche le saut de ligne automatique à la fin du texte)",
+          "\\n (pour aller à la ligne)",
+          "\\t (pour ajouter une tabulation)"
+        ],
+        "example": [
+          "echo \"Ceci est un test\" > mon-fichier.txt"
+        ]
       },
       {
         "id": "cmd_1790250227249",
         "name": "wc",
         "desc": "Compter le nombre de lignes, mots, caractères dans un fichier",
-        "options": "-l (compte uniquement les lignes) -w (les mots) -c (le nombre d'octets) - m (le nombre de caractères)",
-        "example": "wc -l fichier.txt"
+        "options": [
+          "-l (compte uniquement les lignes)",
+          "-w (les mots)",
+          "-c (le nombre d'octets)",
+          "-m (le nombre de caractères)"
+        ],
+        "example": [
+          "wc -l fichier.txt"
+        ]
       },
       {
         "id": "cmd_1790250390045",
         "name": "touch",
         "desc": "Créer un fichier s'il n'existe pas sinon, modifie les métadatas",
-        "options": "-m (modifie la date de la dernière modif), -t (timestamp), -d YYYYMMddHHmm(date)",
-        "example": "touch fichier_1"
+        "options": [
+          "-m (modifie la date de la dernière modif)",
+          "-t (timestamp)",
+          "-d YYYYMMddHHmm (date)"
+        ],
+        "example": [
+          "touch fichier_1"
+        ]
       },
       {
         "id": "cmd_1790250495415",
         "name": "ln",
         "desc": "Créer un lien symbolique",
-        "options": "-s (symbolique)",
-        "example": "ln -s fichier_1 lien_fichier_1"
+        "options": [
+          "-s (symbolique)"
+        ],
+        "example": [
+          "ln -s fichier_1 lien_fichier_1"
+        ]
       },
       {
         "id": "cmd_1790250746097",
         "name": "file",
         "desc": "Donner des informations sur un fichier",
-        "options": "-",
-        "example": "file fichier_1"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "file fichier_1"
+        ]
       },
       {
         "id": "cmd_1790250959348",
         "name": "history",
         "desc": "Equivaut à la flèche du haut pour l'historique des commandes avec date et heure de la commande",
-        "options": "-",
-        "example": "history"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "history"
+        ]
       }
     ]
   },
@@ -104,50 +170,85 @@
         "id": "cmd_9",
         "name": "cat",
         "desc": "Afficher le contenu d'un fichier",
-        "options": "-n (numéroter les lignes)",
-        "example": "cat config.conf"
+        "options": [
+          "-n (numéroter les lignes)"
+        ],
+        "example": [
+          "cat config.conf"
+        ]
       },
       {
         "id": "cmd_10",
         "name": "less",
         "desc": "Lire un fichier de façon interactive",
-        "options": "Touches: q (quitter), / (chercher motif)",
-        "example": "less /var/log/syslog"
+        "options": [
+          "Touches: q (quitter)",
+          "/ (chercher motif)"
+        ],
+        "example": [
+          "less /var/log/syslog"
+        ]
       },
       {
         "id": "cmd_11",
         "name": "head / tail",
         "desc": "Afficher le début ou la fin d'un fichier",
-        "options": "-n X (X lignes), -f (tail: suivi live)",
-        "example": "tail -f -n 50 /var/log/syslog"
+        "options": [
+          "-n X (X lignes)",
+          "-f (tail: suivi live)"
+        ],
+        "example": [
+          "tail -f -n 50 /var/log/syslog"
+        ]
       },
       {
         "id": "cmd_12",
         "name": "grep",
         "desc": "Rechercher du texte dans des contenus. grep <options><motif><fichier>",
-        "options": "-i (sans casse), -r (récursif), -n (num. ligne) -v (exclu de la recherche), -c (compte le nb de lignes)",
-        "example": "grep -rn 'erreur' /var/log/"
+        "options": [
+          "-i (sans casse)",
+          "-r (récursif)",
+          "-n (num. ligne)",
+          "-v (exclu de la recherche)",
+          "-c (compte le nb de lignes)"
+        ],
+        "example": [
+          "grep -rn 'erreur' /var/log/"
+        ]
       },
       {
         "id": "cmd_13",
         "name": "nano / vim",
         "desc": "Éditeurs de texte dans le terminal",
-        "options": "Ctrl+O (sauver nano), :wq (sauver vim)",
-        "example": "nano /etc/hosts"
+        "options": [
+          "Ctrl+O (sauver nano)",
+          ":wq (sauver vim)"
+        ],
+        "example": [
+          "nano /etc/hosts"
+        ]
       },
       {
         "id": "cmd_1790264012095",
         "name": "more",
         "desc": "Paginer le texte d'un fichier",
-        "options": "-",
-        "example": "more fichier_test"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "more fichier_test"
+        ]
       },
       {
         "id": "cmd_1790336717368",
         "name": "update_db",
         "desc": "Met à jour la base de données (en tant que root)",
-        "options": "-",
-        "example": "update_db"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "update_db"
+        ]
       }
     ]
   },
@@ -159,99 +260,161 @@
         "id": "cmd_14",
         "name": "htop / top",
         "desc": "Superviser les ressources & processus en direct",
-        "options": "Interactif (tri CPU, RAM, recherche)",
-        "example": "htop"
+        "options": [
+          "Interactif (tri CPU, RAM, recherche)"
+        ],
+        "example": [
+          "htop"
+        ]
       },
       {
         "id": "cmd_15",
         "name": "ps",
         "desc": "Lister les processus actifs",
-        "options": "aux (tous les processus en détails)",
-        "example": "ps aux | grep python"
+        "options": [
+          "aux (tous les processus en détails)"
+        ],
+        "example": [
+          "ps aux | grep python"
+        ]
       },
       {
         "id": "cmd_16",
         "name": "kill / killall",
         "desc": "Arrêter un ou plusieurs processus",
-        "options": "-9 (forcer l'arrêt immédiat) -l (liste des signaux)",
-        "example": "kill -9 1234"
+        "options": [
+          "-9 (forcer l'arrêt immédiat)",
+          "-l (liste des signaux)"
+        ],
+        "example": [
+          "kill -9 1234"
+        ]
       },
       {
         "id": "cmd_17",
         "name": "df",
         "desc": "Afficher l'espace disque disponible",
-        "options": "-h (lisible Mo/Go), -T (type de FS)",
-        "example": "df -h"
+        "options": [
+          "-h (lisible Mo/Go)",
+          "-T (type de FS)"
+        ],
+        "example": [
+          "df -h"
+        ]
       },
       {
         "id": "cmd_18",
         "name": "du",
         "desc": "Estimer la taille d'un dossier",
-        "options": "-s (total seul), -h (lisible Mo/Go)",
-        "example": "du -sh /var/www/"
+        "options": [
+          "-s (total seul)",
+          "-h (lisible Mo/Go)"
+        ],
+        "example": [
+          "du -sh /var/www/"
+        ]
       },
       {
         "id": "cmd_19",
         "name": "free",
         "desc": "Afficher l'utilisation de la mémoire RAM",
-        "options": "-h (lisible Mo/Go), -m (en Mo)",
-        "example": "free -h"
+        "options": [
+          "-h (lisible Mo/Go)",
+          "-m (en Mo)"
+        ],
+        "example": [
+          "free -h"
+        ]
       },
       {
         "id": "cmd_1790251400189",
         "name": "jobs",
         "desc": "Afficher les jobs en cours/terminés",
-        "options": "-",
-        "example": "jobs"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "jobs"
+        ]
       },
       {
         "id": "cmd_1790251535780",
         "name": "fg",
         "desc": "Foreground - passe le jobs en 1er plan",
-        "options": "%n (n = numéro du job à remonter) Ctrl-Z (stop le job au 1er plan)",
-        "example": "fg %2"
+        "options": [
+          "%n (n = numéro du job à remonter)",
+          "Ctrl-Z (stop le job au 1er plan)"
+        ],
+        "example": [
+          "fg %2"
+        ]
       },
       {
         "id": "cmd_1790251630578",
         "name": "bg",
         "desc": "Background - Remet le job en arrière plan",
-        "options": "%n (n = le job choisit)",
-        "example": "bg %5"
+        "options": [
+          "%n (n = le job choisit)"
+        ],
+        "example": [
+          "bg %5"
+        ]
       },
       {
         "id": "cmd_1790252285315",
         "name": "nice",
         "desc": "Met un niveau de gentillesse a la commande. La gentillesse impacte le niveau de priorité (de -20 à 19 par défaut 0)). Seul root est autorisé à baisser le niveau.",
-        "options": "-n (niveau)",
-        "example": "nice -n 10"
+        "options": [
+          "-n (niveau)"
+        ],
+        "example": [
+          "nice -n 10"
+        ]
       },
       {
         "id": "cmd_1790252325584",
         "name": "ps",
         "desc": "Afficher les processus",
-        "options": "-l (long)",
-        "example": "ps -l"
+        "options": [
+          "-l (long)"
+        ],
+        "example": [
+          "ps -l"
+        ]
       },
       {
         "id": "cmd_1790261903428",
         "name": "renice",
         "desc": "Modifier la gentillesse d'un processus existant",
-        "options": "-n (niveau)",
-        "example": "renice -n 10 14353"
+        "options": [
+          "-n (niveau)"
+        ],
+        "example": [
+          "renice -n 10 14353"
+        ]
       },
       {
         "id": "cmd_1790262052232",
         "name": "pstree",
         "desc": "Afficher l'arborescence des processus en cours d'exécution sous la forme d'un arbre hiérarchique",
-        "options": "-p (avec les PID) -u (changement d'utilisateur UID)",
-        "example": "pstree"
+        "options": [
+          "-p (avec les PID)",
+          "-u (changement d'utilisateur UID)"
+        ],
+        "example": [
+          "pstree"
+        ]
       },
       {
         "id": "cmd_1790526283032",
         "name": "sleep",
         "desc": "Dormir un nombre de seconde",
-        "options": "-",
-        "example": "sleep 5"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "sleep 5"
+        ]
       }
     ]
   },
@@ -263,57 +426,91 @@
         "id": "cmd_20",
         "name": "chmod",
         "desc": "Modifier les permissions d'un fichier",
-        "options": "+x (exécutable), -R (récursif), 755 / 644",
-        "example": "chmod +x script.sh"
+        "options": [
+          "+x (exécutable)",
+          "-R (récursif)",
+          "755 / 644"
+        ],
+        "example": [
+          "chmod +x script.sh"
+        ]
       },
       {
         "id": "cmd_21",
         "name": "chown",
         "desc": "Modifier le propriétaire / groupe",
-        "options": "-R (récursif)",
-        "example": "chown -R www-data:www-data /var/www/"
+        "options": [
+          "-R (récursif)"
+        ],
+        "example": [
+          "chown -R www-data:www-data /var/www/"
+        ]
       },
       {
         "id": "cmd_22",
         "name": "sudo",
         "desc": "Exécuter une commande avec droits root",
-        "options": "-i (ouvrir session root)",
-        "example": "sudo apt update"
+        "options": [
+          "-i (ouvrir session root)"
+        ],
+        "example": [
+          "sudo apt update"
+        ]
       },
       {
         "id": "cmd_1790251287424",
         "name": "umask",
         "desc": "Définir ou afficher le masque de permissions appliqué par défaut aux nouveaux fichiers et répertoires créés par un utilisateur ou un processus",
-        "options": "-S (symbolique)",
-        "example": "umask =rwx,g=rx,o="
+        "options": [
+          "-S (symbolique)"
+        ],
+        "example": [
+          "umask =rwx,g=rx,o="
+        ]
       },
       {
         "id": "cmd_1790525908759",
         "name": "passwd",
         "desc": "Permet de modifier le MDP user",
-        "options": "-",
-        "example": "passwd"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "passwd"
+        ]
       },
       {
         "id": "cmd_1790526071255",
         "name": "stat",
         "desc": "Afficher les métadonnées d'un fichier",
-        "options": "-",
-        "example": "stat Fichier_1"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "stat Fichier_1"
+        ]
       },
       {
         "id": "cmd_1790526121307",
         "name": "id",
         "desc": "Donner l'identité d'un utilisateur et a quel groupe il appartient",
-        "options": "-",
-        "example": "id"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "id"
+        ]
       },
       {
         "id": "cmd_1790526187431",
         "name": "chgrp",
         "desc": "Permet de changer le groupe (que ceux auxquels on appartient)",
-        "options": "-",
-        "example": "chgrp root fichier"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "chgrp root fichier"
+        ]
       }
     ]
   },
@@ -325,36 +522,58 @@
         "id": "cmd_23",
         "name": "ping",
         "desc": "Tester l'accessibilité d'un hôte réseau",
-        "options": "-c N (limiter à N envois)",
-        "example": "ping -c 4 google.com"
+        "options": [
+          "-c N (limiter à N envois)"
+        ],
+        "example": [
+          "ping -c 4 google.com"
+        ]
       },
       {
         "id": "cmd_24",
         "name": "curl / wget",
         "desc": "Requêtes HTTP & Téléchargements",
-        "options": "-O (curl: garder le nom), -I (en-têtes)",
-        "example": "curl -O https://exemple.com/f.zip"
+        "options": [
+          "-O (curl: garder le nom)",
+          "-I (en-têtes)"
+        ],
+        "example": [
+          "curl -O https://exemple.com/f.zip"
+        ]
       },
       {
         "id": "cmd_25",
         "name": "ss / netstat",
         "desc": "Statistiques réseau et ports ouverts",
-        "options": "-tulpn (ports TCP/UDP écoute + PID)",
-        "example": "ss -tulpn"
+        "options": [
+          "-tulpn (ports TCP/UDP écoute + PID)"
+        ],
+        "example": [
+          "ss -tulpn"
+        ]
       },
       {
         "id": "cmd_26",
         "name": "ssh",
         "desc": "Connexion sécurisée à un serveur distant",
-        "options": "-p PORT (port spécifique), -i (clé SSH)",
-        "example": "ssh user@192.168.1.50"
+        "options": [
+          "-p PORT (port spécifique)",
+          "-i (clé SSH)"
+        ],
+        "example": [
+          "ssh user@192.168.1.50"
+        ]
       },
       {
         "id": "cmd_1790526011239",
         "name": "ip",
         "desc": "Afficher l'adresse ip",
-        "options": "-a (all - afficher toutes les ip)",
-        "example": "ip"
+        "options": [
+          "-a (all - afficher toutes les ip)"
+        ],
+        "example": [
+          "ip"
+        ]
       }
     ]
   },
@@ -366,71 +585,111 @@
         "id": "cmd_1790196001032",
         "name": "man",
         "desc": "Afficher les détails pour une commande externe au shell",
-        "options": "-",
-        "example": "man grep"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "man grep"
+        ]
       },
       {
         "id": "cmd_1790249582488",
         "name": "help",
         "desc": "Afficher les aides pour une commande interne au shell",
-        "options": "-",
-        "example": "help cd"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "help cd"
+        ]
       },
       {
         "id": "cmd_1790249604108",
         "name": "type",
         "desc": "Connaitre l'origine de la commande (interne ou externe)",
-        "options": "-",
-        "example": "type grep"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "type grep"
+        ]
       },
       {
         "id": "cmd_1790249623503",
         "name": "apropos",
         "desc": "Afficher un motif dans le manuel de la commande man",
-        "options": "-",
-        "example": "apropos \"disk\""
+        "options": [
+          "-"
+        ],
+        "example": [
+          "apropos \"disk\""
+        ]
       },
       {
         "id": "cmd_1790249685000",
         "name": "uname",
         "desc": "Afficher les informations système",
-        "options": "-",
-        "example": "uname"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "uname"
+        ]
       },
       {
         "id": "cmd_1790249737179",
         "name": "who",
         "desc": "Montre qui est connecté",
-        "options": "-",
-        "example": "who"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "who"
+        ]
       },
       {
         "id": "cmd_1790249761342",
         "name": "whoami",
         "desc": "Afficher le nom de l'utilisateur",
-        "options": "-",
-        "example": "whoami"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "whoami"
+        ]
       },
       {
         "id": "cmd_1790250328949",
         "name": "alias",
         "desc": "Définit ou affiche des alias (si pas d'arguments)",
-        "options": "-",
-        "example": "alias ll=\"ls-l\""
+        "options": [
+          "-"
+        ],
+        "example": [
+          "alias ll=\"ls -l\""
+        ]
       },
       {
         "id": "cmd_1790525788685",
         "name": "whatis",
         "desc": "Permet de voir les paragraphes d'un manuel",
-        "options": "-",
-        "example": "whatis cd"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "whatis cd"
+        ]
       },
       {
         "id": "cmd_1790525829211",
         "name": "whereis",
         "desc": "Rechercher les fichiers exécutables, les sources et les pages de manuel d'une commande",
-        "options": "-",
-        "example": "whereis cd"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "whereis cd"
+        ]
       }
     ]
   },
@@ -442,71 +701,113 @@
         "id": "cmd_1790262220653",
         "name": "0",
         "desc": "Entrée standard",
-        "options": "-",
-        "example": "STDIN"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "STDIN"
+        ]
       },
       {
         "id": "cmd_1790262242914",
         "name": "1",
         "desc": "Sortie standard",
-        "options": "-",
-        "example": "STDOUT"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "STDOUT"
+        ]
       },
       {
         "id": "cmd_1790262261461",
         "name": "2",
         "desc": "Sortie d'erreur",
-        "options": "-",
-        "example": "STDERR"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "STDERR"
+        ]
       },
       {
         "id": "cmd_1790262334895",
         "name": ">",
         "desc": "Rediriger la sortie standard",
-        "options": "-",
-        "example": "echo test > fichier_test"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "echo test > fichier_test"
+        ]
       },
       {
         "id": "cmd_1790262394474",
         "name": "2>",
         "desc": "Rediriger la sortie d'erreur",
-        "options": "-",
-        "example": "ls fic1 fic2 2>fichier_ko"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "ls fic1 fic2 2>fichier_ko"
+        ]
       },
       {
         "id": "cmd_1790262446816",
         "name": ">>",
         "desc": "Cumuler les entrées",
-        "options": "-",
-        "example": "echo test >> fichier_echo echo test >> fichier_echo"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "echo test >> fichier_echo",
+          "echo test >> fichier_echo"
+        ]
       },
       {
         "id": "cmd_1790262521807",
         "name": "&>",
         "desc": "Rediriger le flux de sortie et d'erreur vers la même destination",
-        "options": "-",
-        "example": "ls fic1 fic2 &>fichier_ok_ko"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "ls fic1 fic2 &>fichier_ok_ko"
+        ]
       },
       {
         "id": "cmd_1790262559018",
         "name": ":>",
         "desc": "Rediriger pour créer un fichier",
-        "options": "-",
-        "example": ":> fic"
+        "options": [
+          "-"
+        ],
+        "example": [
+          ":> fic"
+        ]
       },
       {
         "id": "cmd_1790262694519",
         "name": "|",
         "desc": "Pipe : Permet d'envoyer le résultat d'une commande à une autre commande (Attention : le flux d'erreur n'est pas prit en compte dans le | mais sera afficher quand même)",
-        "options": "-",
-        "example": "grep defaut | ip r"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "grep defaut | ip r"
+        ]
       },
       {
         "id": "cmd_1790264759106",
         "name": "tee",
         "desc": "Lit depuis l'entrée standard et écrit dans la sortie standard et fichiers",
-        "options": "-a (append : ajoute le texte a la fin du fichier existant au lieu d'écraser son contenu) -i (ignore les signaux d'interruption)",
-        "example": "echo \"Nouvelle ligne\" | tee -a fichier.txt"
+        "options": [
+          "-a (append : ajoute le texte a la fin du fichier existant au lieu d'écraser son contenu)",
+          "-i (ignore les signaux d'interruption)"
+        ],
+        "example": [
+          "echo \"Nouvelle ligne\" | tee -a fichier.txt"
+        ]
       }
     ]
   },
@@ -518,22 +819,36 @@
         "id": "cmd_1790263915087",
         "name": "uniq",
         "desc": "Permet de supprimet les doublons à l'affichage, ils ne seront pas supprimés du fichier",
-        "options": "-",
-        "example": "uniq fichier_test"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "uniq fichier_test"
+        ]
       },
       {
         "id": "cmd_1790264172635",
         "name": "sort",
         "desc": "Trier les données d'un fichier",
-        "options": "-t\"(délimiteur)\" -k (le 1er champ, le dernier champ)",
-        "example": "sort -t';' -k3,3 fichier_test"
+        "options": [
+          "-t\"(délimiteur)\"",
+          "-k (le 1er champ, le dernier champ)"
+        ],
+        "example": [
+          "sort -t';' -k3,3 fichier_test"
+        ]
       },
       {
         "id": "cmd_1790264434536",
         "name": "cut",
         "desc": "Extraire une partie des données d'un fichier",
-        "options": "-d\"(délimiteur)\" -f (numéro du champ/colonne) (ex: 3,5 champs 3 et 5 ou 3-5 du champ 3 à 5)",
-        "example": "cut -d':' -f4 fichier_test"
+        "options": [
+          "-d\"(délimiteur)\"",
+          "-f (numéro du champ/colonne) (ex: 3,5 champs 3 et 5 ou 3-5 du champ 3 à 5)"
+        ],
+        "example": [
+          "cut -d':' -f4 fichier_test"
+        ]
       }
     ]
   },
@@ -545,22 +860,55 @@
         "id": "cmd_1790267405893",
         "name": "locate",
         "desc": "Rechercher un fichier par nom dans tout le système",
-        "options": "-i (prendren en compte la casse), -c (compte le nombre d'occurence), -f (nom plutôt que motif), -r (expression régulière), -b (basename - fin arborescence)",
-        "example": "locate -i -b \"sahdow*\""
+        "options": [
+          "-i (prendre en compte la casse)",
+          "-c (compte le nombre d'occurence)",
+          "-f (nom plutôt que motif)",
+          "-r (expression régulière)",
+          "-b (basename - fin arborescence)"
+        ],
+        "example": [
+          "locate -i -b \"shadow*\""
+        ]
       },
       {
         "id": "cmd_1790267486792",
         "name": "plocate",
         "desc": "Locate mais en plus rapide",
-        "options": "-",
-        "example": "plocate fichier_1"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "plocate fichier_1"
+        ]
       },
       {
         "id": "cmd_1790526567467",
         "name": "find",
         "desc": "Rechercher des fichiers dans l'arborescence. find <chemins><criteres><actions>",
-        "options": "CRITERES : -name 'motif', -iname (sans casse), -user (nom ou PID), -group (nom ou PID) -type f/d/l, -mtime +/- n (dernière date de modif), -atime (dernière lecture ou ouverture), -ctime (dernière modif des métadonnées, -mmin, -amin, -cmin (même chose en minutes), -perm u=rwx, -mindepth (niveau mini), -maxdepth (niveau maxi) ACTIONS : -print (par défaut), -exec commande {} \\; (execution d'une commande), -delete (supprime), -ok (demande confirmation)",
-        "example": "find . -name '*.log' -type f"
+        "options": [
+          "CRITERES :",
+          "-name 'motif'",
+          "-iname (sans casse)",
+          "-user (nom ou PID)",
+          "-group (nom ou PID)",
+          "-type f/d/l",
+          "-mtime +/- n (dernière date de modif)",
+          "-atime (dernière lecture ou ouverture)",
+          "-ctime (dernière modif des métadonnées)",
+          "-mmin, -amin, -cmin (même chose en minutes)",
+          "-perm u=rwx",
+          "-mindepth (niveau mini)",
+          "-maxdepth (niveau maxi)",
+          "ACTIONS :",
+          "-print (par défaut)",
+          "-exec commande {} \\; (execution d'une commande)",
+          "-delete (supprime)",
+          "-ok (demande confirmation)"
+        ],
+        "example": [
+          "find . -name '*.log' -type f"
+        ]
       }
     ]
   },
@@ -572,78 +920,122 @@
         "id": "cmd_1790337976369",
         "name": "exit",
         "desc": "Sortir du bash en cours",
-        "options": "-",
-        "example": "exit"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "exit"
+        ]
       },
       {
         "id": "cmd_1790338003794",
         "name": "var",
         "desc": "Variabiliser",
-        "options": "-",
-        "example": "var=\"Bonjour\""
+        "options": [
+          "-"
+        ],
+        "example": [
+          "var=\"Bonjour\""
+        ]
       },
       {
         "id": "cmd_1790338063878",
         "name": "set",
         "desc": "Afficher/modifier les variables",
-        "options": "-v (verbose)",
-        "example": "set | grep \"LOGNAME\""
+        "options": [
+          "-v (verbose)"
+        ],
+        "example": [
+          "set | grep \"LOGNAME\""
+        ]
       },
       {
         "id": "cmd_1790338097561",
         "name": "set | less",
         "desc": "Afficher les variables de bash",
-        "options": "-",
-        "example": "set | less"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "set | less"
+        ]
       },
       {
         "id": "cmd_1790338128733",
         "name": "unset",
         "desc": "Supprimer une variable",
-        "options": "-",
-        "example": "unset var"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "unset var"
+        ]
       },
       {
         "id": "cmd_1790338220486",
         "name": "env",
         "desc": "Afficher les variables d'environnement ou les commandes exportées avec export",
-        "options": "-",
-        "example": "env | less"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "env | less"
+        ]
       },
       {
         "id": "cmd_1790338325709",
         "name": "export",
         "desc": "Indiquer au shell qu'une var doit être copiée dans l'environnement des processus fils du shell",
-        "options": "-",
-        "example": "export var"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "export var"
+        ]
       },
       {
         "id": "cmd_1790338405923",
         "name": "alias",
         "desc": "Afficher/créer un alias pour une commande",
-        "options": "-",
-        "example": "alias rm=rm -i"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "alias rm=rm -i"
+        ]
       },
       {
         "id": "cmd_1790526526690",
         "name": "$PATH",
         "desc": "Afficher tout les dossiers dans lequels ira chercher bash",
-        "options": "-",
-        "example": "Ajout d'une var : PATH=\"$PATH\": /etc/bin"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "Ajout d'une var : PATH=\"$PATH\": /etc/bin"
+        ]
       },
       {
         "id": "cmd_1790526777641",
         "name": ".bashrc",
         "desc": "Ajouter une variable dans tout les terminaux (persitante)",
-        "options": "-",
-        "example": "vim .bashrc"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "vim .bashrc"
+        ]
       },
       {
         "id": "cmd_1790527029811",
         "name": ".bashrc.d",
         "desc": "Ajouter des commandes qui seront executées dans chaque nouveaux terminaux par ordre alphabétique",
-        "options": "-",
-        "example": "alias rm=rm -i"
+        "options": [
+          "-"
+        ],
+        "example": [
+          "alias rm=rm -i"
+        ]
       }
     ]
   },
@@ -655,8 +1047,21 @@
         "id": "cmd_1790604783435",
         "name": "tar",
         "desc": "Gérer l'archivage de fichiers",
-        "options": "-c (Créer l'archive) -v (verbose) -f (indique le fichier à utiliser Att : METTRE EN DERNIERE OPTION) -t (lister une archive) -x (extraction) -C (indique le dossier de destination) -r (rajouter des fichiers à la fin de l'archive) -P (présèrve le chemin absolue / devant) --exclude (exclure des fichiers) --delete (suppresion des fichiers d'un archive",
-        "example": "tar -cv -f monArchive.tar /home/fichier1"
+        "options": [
+          "-c (Créer l'archive)",
+          "-v (verbose)",
+          "-f (indique le fichier à utiliser Att : METTRE EN DERNIERE OPTION)",
+          "-t (lister une archive)",
+          "-x (extraction)",
+          "-C (indique le dossier de destination)",
+          "-r (rajouter des fichiers à la fin de l'archive)",
+          "-P (présèrve le chemin absolue / devant)",
+          "--exclude (exclure des fichiers)",
+          "--delete (suppresion des fichiers d'un archive"
+        ],
+        "example": [
+          "tar -cv -f monArchive.tar /home/fichier1"
+        ]
       }
     ]
   }

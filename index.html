@@ -59,6 +59,11 @@
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
             color: #f9e2af;
             font-weight: 600;
+            background-color: #1e293b;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            border: 1px solid #f9e2af22;
         }
         .ex-badge {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -136,14 +141,14 @@
 
     <!-- Modal: Add New Command -->
     <div id="cmd-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl max-h-[90vh] flex flex-col">
             <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center">
                 <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
                     <i class="fa-solid fa-square-plus text-sky-400"></i> Nouvelle Commande
                 </h3>
                 <button id="close-cmd-modal" class="text-slate-400 hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <form id="cmd-form" class="p-6 space-y-4">
+            <form id="cmd-form" class="p-6 space-y-4 overflow-y-auto">
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Catégorie</label>
                     <select id="modal-category" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm" required>
@@ -159,12 +164,12 @@
                     <input type="text" id="modal-desc" placeholder="ex: Rechercher un motif dans un fichier" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm" required>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Options principales</label>
-                    <input type="text" id="modal-options" placeholder="ex: -i (ignore casse), -r (récursif)" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm">
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Options principales (1 par ligne)</label>
+                    <textarea id="modal-options" rows="3" placeholder="-i (ignore la casse)&#10;-r (recherche récursive)&#10;-n (affiche les numéros de ligne)" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm"></textarea>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Exemple d'utilisation</label>
-                    <input type="text" id="modal-example" placeholder="ex: grep -rn 'erreur' /var/log/" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm">
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Exemples d'utilisation (1 par ligne)</label>
+                    <textarea id="modal-example" rows="3" placeholder="grep -rn 'erreur' /var/log/&#10;grep -i 'user' /etc/passwd" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-sky-500 text-sm"></textarea>
                 </div>
                 <div class="pt-2 flex justify-end gap-3">
                     <button type="button" id="cancel-cmd-modal" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm rounded-lg">Annuler</button>
@@ -196,8 +201,6 @@
         </div>
     </div>
 
-    <!-- JavaScript Application Logic -->
-<!-- JavaScript Application Logic -->
     <script>
         // State Variables
         let linuxData = [];
@@ -228,9 +231,15 @@
             branch: "main"                 
         };
 
+        // Helper pour normaliser en tableau de chaînes
+        function toArray(val) {
+            if (Array.isArray(val)) return val;
+            if (!val) return [];
+            return String(val).split('\n').map(s => s.trim()).filter(Boolean);
+        }
+
         // 1. CHARGEMENT DES DONNÉES DEPUIS GITHUB
         async function initData() {
-                        
             try {
                 const res = await fetch(`./data.json?t=${Date.now()}`);
                 if (res.ok) {
@@ -268,7 +277,6 @@
             const apiUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`;
 
             try {
-                // 1. Récupération du SHA (GET)
                 const getRes = await fetch(`${apiUrl}?ref=${GITHUB_CONFIG.branch}`, {
                     method: 'GET',
                     headers: {
@@ -289,13 +297,11 @@
                 const fileData = await getRes.json();
                 const sha = fileData.sha;
 
-                // 2. Encodage Base64 UTF-8
                 const contentJson = JSON.stringify(linuxData, null, 2);
                 const bytes = new TextEncoder().encode(contentJson);
                 const binString = String.fromCharCode(...bytes);
                 const contentBase64 = btoa(binString);
 
-                // 3. Écriture du fichier (PUT) avec en-têtes stricts GitHub API v3
                 const putRes = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: {
@@ -344,12 +350,15 @@
             let matchesCount = 0;
 
             linuxData.forEach((category) => {
-                const filteredCommands = category.commands.filter(cmd => 
-                    cmd.name.toLowerCase().includes(query) ||
-                    cmd.desc.toLowerCase().includes(query) ||
-                    cmd.options.toLowerCase().includes(query) ||
-                    cmd.example.toLowerCase().includes(query)
-                );
+                const filteredCommands = category.commands.filter(cmd => {
+                    const optsStr = Array.isArray(cmd.options) ? cmd.options.join(' ') : (cmd.options || '');
+                    const exStr = Array.isArray(cmd.example) ? cmd.example.join(' ') : (cmd.example || '');
+
+                    return cmd.name.toLowerCase().includes(query) ||
+                           cmd.desc.toLowerCase().includes(query) ||
+                           optsStr.toLowerCase().includes(query) ||
+                           exStr.toLowerCase().includes(query);
+                });
 
                 if (query && filteredCommands.length === 0) return;
 
@@ -408,28 +417,39 @@
                     const tr = document.createElement('tr');
                     tr.className = "hover:bg-slate-800/40 transition group";
 
+                    const optionsList = toArray(cmd.options);
+                    const exampleList = toArray(cmd.example);
+
+                    const optionsHTML = optionsList.length > 0 
+                        ? optionsList.map(opt => `<div class="opt-badge my-0.5">${escapeHTML(opt)}</div>`).join('\n')
+                        : '<div class="opt-badge my-0.5">-</div>';
+
+                    const exampleHTML = exampleList.length > 0 
+                        ? exampleList.map(ex => `<div class="ex-badge my-0.5">${escapeHTML(ex)}</div>`).join('\n')
+                        : '<div class="ex-badge my-0.5">-</div>';
+
                     tr.innerHTML = `
-                        <td class="py-3.5 px-6 font-mono">
-                            <span contenteditable="true" data-cmd-id="${cmd.id}" data-field="name" class="cmd-badge cmd-field-edit">
+                        <td class="py-3.5 px-6 font-mono align-top">
+                            <span contenteditable="true" data-cmd-id="${cmd.id}" data-field="name" class="cmd-badge cmd-field-edit inline-block">
                                 ${escapeHTML(cmd.name)}
                             </span>
                         </td>
-                        <td class="py-3.5 px-6 text-slate-200">
+                        <td class="py-3.5 px-6 text-slate-200 align-top">
                             <span contenteditable="true" data-cmd-id="${cmd.id}" data-field="desc" class="cmd-field-edit block hover:bg-slate-800/50 p-1 rounded">
                                 ${escapeHTML(cmd.desc)}
                             </span>
                         </td>
-                        <td class="py-3.5 px-6 text-amber-200/90 font-mono text-xs">
-                            <span contenteditable="true" data-cmd-id="${cmd.id}" data-field="options" class="opt-badge cmd-field-edit block hover:bg-slate-800/50 p-1 rounded">
-                                ${escapeHTML(cmd.options)}
-                            </span>
+                        <td class="py-3.5 px-6 font-mono text-xs align-top">
+                            <div contenteditable="true" data-cmd-id="${cmd.id}" data-field="options" class="cmd-field-edit space-y-1 hover:bg-slate-800/30 p-1 rounded">
+                                ${optionsHTML}
+                            </div>
                         </td>
-                        <td class="py-3.5 px-6 font-mono">
-                            <span contenteditable="true" data-cmd-id="${cmd.id}" data-field="example" class="ex-badge cmd-field-edit hover:bg-slate-800/50">
-                                ${escapeHTML(cmd.example)}
-                            </span>
+                        <td class="py-3.5 px-6 font-mono align-top">
+                            <div contenteditable="true" data-cmd-id="${cmd.id}" data-field="example" class="cmd-field-edit space-y-1 hover:bg-slate-800/30 p-1 rounded">
+                                ${exampleHTML}
+                            </div>
                         </td>
-                        <td class="py-3.5 px-4 text-center">
+                        <td class="py-3.5 px-4 text-center align-top">
                             <button onclick="deleteCommand('${category.id}', '${cmd.id}')" class="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-rose-400 p-1.5 transition">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
@@ -479,23 +499,20 @@
                 elem.addEventListener('blur', (e) => {
                     const cmdId = e.target.getAttribute('data-cmd-id');
                     const field = e.target.getAttribute('data-field');
-                    const newValue = e.target.innerText.trim();
 
                     for (let cat of linuxData) {
                         let cmd = cat.commands.find(c => c.id === cmdId);
                         if (cmd) {
-                            cmd[field] = newValue;
+                            if (field === 'options' || field === 'example') {
+                                const lines = e.target.innerText.split('\n').map(l => l.trim()).filter(Boolean);
+                                cmd[field] = lines;
+                            } else {
+                                cmd[field] = e.target.innerText.trim();
+                            }
                             saveData();
                             showToast("Modifications enregistrées");
                             break;
                         }
-                    }
-                });
-
-                elem.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        e.target.blur();
                     }
                 });
             });
@@ -551,8 +568,12 @@
             const catId = modalCategorySelect.value;
             const name = document.getElementById('modal-cmd').value.trim();
             const desc = document.getElementById('modal-desc').value.trim();
-            const options = document.getElementById('modal-options').value.trim() || "-";
-            const example = document.getElementById('modal-example').value.trim() || name;
+            
+            const rawOptions = document.getElementById('modal-options').value;
+            const rawExamples = document.getElementById('modal-example').value;
+
+            const options = rawOptions.split('\n').map(s => s.trim()).filter(Boolean);
+            const example = rawExamples.split('\n').map(s => s.trim()).filter(Boolean);
 
             const cat = linuxData.find(c => c.id === catId);
             if (cat) {
@@ -560,8 +581,8 @@
                     id: "cmd_" + Date.now(),
                     name,
                     desc,
-                    options,
-                    example
+                    options: options.length ? options : ["-"],
+                    example: example.length ? example : [name]
                 });
                 saveData();
                 renderApp();
