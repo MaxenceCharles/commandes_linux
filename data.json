@@ -1060,7 +1060,8 @@
           "--delete (suppresion des fichiers d'un archive"
         ],
         "example": [
-          "tar -cv -f monArchive.tar /home/fichier1"
+          "tar -cv -f monArchive.tar /home/fichier1",
+          "tar -xvf /tmp/save.tar -C /tmp/recup /etc/services"
         ]
       }
     ]
