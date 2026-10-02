@@ -557,8 +557,8 @@
         "name": "ssh",
         "desc": "Connexion sécurisée à un serveur distant",
         "options": [
-          "-p PORT (port spécifique)",
-          "-i (clé SSH)"
+          "-p PORT (port spécifique) -i (clé SSH)",
+          "-v (verbose)"
         ],
         "example": [
           "ssh user@192.168.1.50"
@@ -1062,6 +1062,33 @@
         "example": [
           "tar -cv -f monArchive.tar /home/fichier1",
           "tar -xvf /tmp/save.tar -C /tmp/recup /etc/services"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cat_1790938252040",
+    "name": "📆 Planification de tâches",
+    "commands": [
+      {
+        "id": "cmd_1790938428690",
+        "name": "crontab",
+        "desc": "Executer de manière différée ou périodique des commandes",
+        "options": [
+          "-e éditer la crontab -l lister la crontab -r supprimer la crontab",
+          "* = toutes les occurences",
+          "1,10 = plusieurs valeurs",
+          "1-10 = plage de valeurs",
+          "*/10 = incrément (pas)"
+        ],
+        "example": [
+          "# m (min) h(heure) dom (jour du mois) mon (mois) dow (jour de la semaine)",
+          "minutes : 0-59",
+          "heures : 0-23",
+          "dom : 1-31",
+          "mon : 1-12",
+          "dow : 0-7 (dimanche)",
+          "20 14 * * * echo \"test cron\" > /tmp/test.cron"
         ]
       }
     ]
