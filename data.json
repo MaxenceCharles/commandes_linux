@@ -119,9 +119,7 @@
         "name": "touch",
         "desc": "Créer un fichier s'il n'existe pas sinon, modifie les métadatas",
         "options": [
-          "-m (modifie la date de la dernière modif)",
-          "-t (timestamp)",
-          "-d YYYYMMddHHmm (date)"
+          "-m (modifie la date de la dernière modif) -t (timestamp ex: 202307141015) -d YYYYMMddHHmm (date)"
         ],
         "example": [
           "touch fichier_1"
@@ -829,10 +827,11 @@
       {
         "id": "cmd_1790264172635",
         "name": "sort",
-        "desc": "Trier les données d'un fichier",
+        "desc": "Trier les données d'un fichier.\nLe tri est croissant par défaut",
         "options": [
-          "-t\"(délimiteur)\"",
-          "-k (le 1er champ, le dernier champ)"
+          "-t\"(délimiteur)\" -k (le 1er champ, le dernier champ)",
+          "-r (reverse)",
+          "-n (numeric)"
         ],
         "example": [
           "sort -t';' -k3,3 fichier_test"
@@ -900,7 +899,7 @@
           "-perm u=rwx",
           "-mindepth (niveau mini)",
           "-maxdepth (niveau maxi)",
-          "ACTIONS :",
+          "-size (ex. +10k)  ACTIONS :",
           "-print (par défaut)",
           "-exec commande {} \\; (execution d'une commande)",
           "-delete (supprime)",
