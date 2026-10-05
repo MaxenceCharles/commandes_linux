@@ -204,11 +204,8 @@
         "name": "grep",
         "desc": "Rechercher du texte dans des contenus. grep <options><motif><fichier>",
         "options": [
-          "-i (sans casse)",
-          "-r (récursif)",
-          "-n (num. ligne)",
-          "-v (exclu de la recherche)",
-          "-c (compte le nb de lignes)"
+          "-i (sans casse) -r (récursif) -n (num. ligne) -v (exclu de la recherche) -c (compte le nb de lignes)",
+          "-E (concatener plusieurs recherches ex: -E \"test|test2\""
         ],
         "example": [
           "grep -rn 'erreur' /var/log/"
@@ -219,8 +216,11 @@
         "name": "nano / vim",
         "desc": "Éditeurs de texte dans le terminal",
         "options": [
-          "Ctrl+O (sauver nano)",
-          ":wq (sauver vim)"
+          "Ctrl+O (sauver nano) :wq (sauver vim)",
+          ":q! (annuler les changements)",
+          "x (efface)",
+          "i (mode insertion)",
+          "a (ajouter du texte)"
         ],
         "example": [
           "nano /etc/hosts"
