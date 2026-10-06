@@ -60,7 +60,7 @@
           "-i (demander confirmation)"
         ],
         "example": [
-          "cp -r dossier_src/ dossier_dst/"
+          "cp -r /dossier_src/ dossier_dst"
         ]
       },
       {
@@ -270,7 +270,10 @@
         "name": "ps",
         "desc": "Lister les processus actifs",
         "options": [
-          "aux (tous les processus en détails)"
+          "aux (tous les processus en détails)",
+          "-e (tous les processus)",
+          "-l (format long)",
+          "-f (liste format complet)"
         ],
         "example": [
           "ps aux | grep python"
