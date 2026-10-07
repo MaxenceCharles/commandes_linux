@@ -204,8 +204,11 @@
         "name": "grep",
         "desc": "Rechercher du texte dans des contenus. grep <options><motif><fichier>",
         "options": [
-          "-i (sans casse) -r (récursif) -n (num. ligne) -v (exclu de la recherche) -c (compte le nb de lignes)",
-          "-E (concatener plusieurs recherches ex: -E \"test|test2\""
+          "-i (sans casse)",
+          "-r (récursif)",
+          "-n (num. ligne)",
+          "-v (exclu de la recherche)",
+          "-c (compte le nb de lignes) -E (concatener plusieurs recherches ex: -E \"test|test2\""
         ],
         "example": [
           "grep -rn 'erreur' /var/log/"
@@ -285,10 +288,11 @@
         "desc": "Arrêter un ou plusieurs processus",
         "options": [
           "-9 (forcer l'arrêt immédiat)",
+          "-s (signal)",
           "-l (liste des signaux)"
         ],
         "example": [
-          "kill -9 1234"
+          "kill -s 9 1234"
         ]
       },
       {
@@ -428,12 +432,11 @@
         "name": "chmod",
         "desc": "Modifier les permissions d'un fichier",
         "options": [
-          "+x (exécutable)",
-          "-R (récursif)",
-          "755 / 644"
+          "-a (all = ugo)",
+          "+x (exécutable) -R (récursif) 755 / 644"
         ],
         "example": [
-          "chmod +x script.sh"
+          "chmod o-r ~/rep1"
         ]
       },
       {
@@ -466,7 +469,7 @@
           "-S (symbolique)"
         ],
         "example": [
-          "umask =rwx,g=rx,o="
+          "umask u=rwx,g=rx,o="
         ]
       },
       {
@@ -558,10 +561,16 @@
         "name": "ssh",
         "desc": "Connexion sécurisée à un serveur distant",
         "options": [
-          "-p PORT (port spécifique) -i (clé SSH)",
+          "-p PORT (port spécifique)",
+          "-i (clé SSH)",
           "-v (verbose)"
         ],
         "example": [
+          "Création de la clé privée et publique :",
+          "ssh-keygen",
+          "Copier la clé publique sur le serveur distant:",
+          "ssh-copy-id user@ipDeLaVM",
+          "Se connecter :",
           "ssh -p 1024 user@192.168.1.50"
         ]
       },
@@ -809,6 +818,28 @@
         "example": [
           "echo \"Nouvelle ligne\" | tee -a fichier.txt"
         ]
+      },
+      {
+        "id": "cmd_1791379169345",
+        "name": "2>&1",
+        "desc": "Rediier la sortie d'erreur vers la sortie standard",
+        "options": [
+          "-"
+        ],
+        "example": [
+          "ls /home /toto 2>&1 >fic1"
+        ]
+      },
+      {
+        "id": "cmd_1791379186001",
+        "name": "&1",
+        "desc": "Sortie standard",
+        "options": [
+          "-"
+        ],
+        "example": [
+          "&1"
+        ]
       }
     ]
   },
@@ -832,9 +863,10 @@
         "name": "sort",
         "desc": "Trier les données d'un fichier.\nLe tri est croissant par défaut",
         "options": [
-          "-t\"(délimiteur)\" -k (le 1er champ, le dernier champ)",
-          "-r (reverse)",
-          "-n (numeric)"
+          "-t\"(délimiteur)\"",
+          "-k (le 1er champ, le dernier champ)",
+          "-r (reverse) -n (numeric)",
+          "-u (uniq)"
         ],
         "example": [
           "sort -t';' -k3,3 fichier_test"
@@ -863,11 +895,7 @@
         "name": "locate",
         "desc": "Rechercher un fichier par nom dans tout le système",
         "options": [
-          "-i (prendre en compte la casse)",
-          "-c (compte le nombre d'occurence)",
-          "-f (nom plutôt que motif)",
-          "-r (expression régulière)",
-          "-b (basename - fin arborescence)"
+          "-i (ignorer la casse) -c (compte le nombre d'occurence) -f (nom plutôt que motif) -r (expression régulière) -b (basename - fin arborescence)"
         ],
         "example": [
           "locate -i -b \"shadow*\""
@@ -889,24 +917,9 @@
         "name": "find",
         "desc": "Rechercher des fichiers dans l'arborescence. find <chemins><criteres><actions>",
         "options": [
-          "CRITERES :",
-          "-name 'motif'",
-          "-iname (sans casse)",
-          "-user (nom ou PID)",
-          "-group (nom ou PID)",
-          "-type f/d/l",
-          "-mtime +/- n (dernière date de modif)",
-          "-atime (dernière lecture ou ouverture)",
-          "-ctime (dernière modif des métadonnées)",
-          "-mmin, -amin, -cmin (même chose en minutes)",
-          "-perm u=rwx",
-          "-mindepth (niveau mini)",
-          "-maxdepth (niveau maxi)",
-          "-size (ex. +10k)  ACTIONS :",
-          "-print (par défaut)",
-          "-exec commande {} \\; (execution d'une commande)",
-          "-delete (supprime)",
-          "-ok (demande confirmation)"
+          "CRITERES : -name 'motif' -iname (sans casse) -user (nom ou PID) -group (nom ou PID) -type f/d/l -mtime +/- n (dernière date de modif) -atime (dernière lecture ou ouverture) -ctime (dernière modif des métadonnées) -mmin, -amin, -cmin (même chose en minutes) -perm u=rwx -mindepth (niveau mini) -maxdepth (niveau maxi) -size (ex. +10k)",
+          "ACTIONS :",
+          "-print (par défaut) -exec commande {} \\; (execution d'une commande) -delete (supprime) -ok (demande confirmation)"
         ],
         "example": [
           "find . -name '*.log' -type f"
@@ -1048,22 +1061,29 @@
       {
         "id": "cmd_1790604783435",
         "name": "tar",
-        "desc": "Gérer l'archivage de fichiers",
+        "desc": "Gérer l'archivage de fichiers\nExtentions :\nTar - .tar\ngzip - .tar.gz OU .tgz\nbzip2 - .tar.bz2 OU .tbz2\nxv - .zstd\nZstandard - .zstd",
         "options": [
-          "-c (Créer l'archive)",
-          "-v (verbose)",
-          "-f (indique le fichier à utiliser Att : METTRE EN DERNIERE OPTION)",
-          "-t (lister une archive)",
-          "-x (extraction)",
-          "-C (indique le dossier de destination)",
-          "-r (rajouter des fichiers à la fin de l'archive)",
-          "-P (présèrve le chemin absolue / devant)",
-          "--exclude (exclure des fichiers)",
-          "--delete (suppresion des fichiers d'un archive"
+          "-c (Créer l'archive) -v (verbose) -f (indique le fichier à utiliser Att : METTRE EN DERNIERE OPTION) -t (lister une archive) -x (extraction)",
+          "-j (Compression ou décompression bzip2)",
+          "-z (Compression ou décompression gzip)",
+          "-J (Compression ou décompression xz)",
+          "-zstd (Compression ou décompression Zstandard)",
+          "-C (indique le dossier de destination) -r (rajouter des fichiers à la fin de l'archive) -P (présèrve le chemin absolue / devant) --exclude (exclure des fichiers) --delete (suppresion des fichiers d'un archive"
         ],
         "example": [
           "tar -cv -f monArchive.tar /home/fichier1",
           "tar -xvf /tmp/save.tar -C /tmp/recup /etc/services"
+        ]
+      },
+      {
+        "id": "cmd_1791375477466",
+        "name": "time",
+        "desc": "Mesurer le temps d'exécution d'un programme ou d'une commande",
+        "options": [
+          "-"
+        ],
+        "example": [
+          "time tar -cf monArchive.tar /home/stag/scripts"
         ]
       }
     ]
@@ -1077,20 +1097,13 @@
         "name": "crontab",
         "desc": "Executer de manière différée ou périodique des commandes",
         "options": [
-          "-e éditer la crontab -l lister la crontab -r supprimer la crontab",
-          "* = toutes les occurences",
-          "1,10 = plusieurs valeurs",
-          "1-10 = plage de valeurs",
-          "*/10 = incrément (pas)"
+          "-e (éditer la crontab)",
+          "-r (supprimer la crontab)",
+          "-l (lister la crontab)",
+          "* = toutes les occurences 1,10 = plusieurs valeurs 1-10 = plage de valeurs */10 = incrément (pas)"
         ],
         "example": [
-          "# m (min) h(heure) dom (jour du mois) mon (mois) dow (jour de la semaine)",
-          "minutes : 0-59",
-          "heures : 0-23",
-          "dom : 1-31",
-          "mon : 1-12",
-          "dow : 0-7 (dimanche)",
-          "20 14 * * * echo \"test cron\" > /tmp/test.cron"
+          "# m (min) h(heure) dom (jour du mois) mon (mois) dow (jour de la semaine) minutes : 0-59 heures : 0-23 dom : 1-31 mon : 1-12 dow : 0-7 (0 et 7 = dimanche) 20 14 * * * echo \"test cron\" > /tmp/test.cron"
         ]
       }
     ]
