@@ -157,6 +157,17 @@
         "example": [
           "history"
         ]
+      },
+      {
+        "id": "cmd_1791383013916",
+        "name": "rmdir",
+        "desc": "Supprimer un répertoire",
+        "options": [
+          "-p (parent)"
+        ],
+        "example": [
+          "rmdir -p ~/rep1"
+        ]
       }
     ]
   },
@@ -392,7 +403,8 @@
         "name": "renice",
         "desc": "Modifier la gentillesse d'un processus existant",
         "options": [
-          "-n (niveau)"
+          "-n (niveau)",
+          "-u (utilisateur - change tous les processus de l'utilisateur)"
         ],
         "example": [
           "renice -n 10 14353"
@@ -419,6 +431,17 @@
         ],
         "example": [
           "sleep 5"
+        ]
+      },
+      {
+        "id": "cmd_1791384011091",
+        "name": "nohup",
+        "desc": "Indiquer que le programme doit ignorer les SIGHUP. Les sorties qui devaient avoir lieu sont stockées dans un fichier.",
+        "options": [
+          "-"
+        ],
+        "example": [
+          "nohup ./mon_script.sh &"
         ]
       }
     ]
@@ -583,6 +606,21 @@
         ],
         "example": [
           "ip"
+        ]
+      },
+      {
+        "id": "cmd_1791384833743",
+        "name": "nano ~/.ssh/config",
+        "desc": "Configuer les hosts ssh pour se connecter plus rapidement",
+        "options": [
+          "-"
+        ],
+        "example": [
+          "Host mon-serveur",
+          "HostName 192.168.1.50User monuser",
+          "Port 2222",
+          "IdentityFile ~/.ssh/id_ed25519",
+          "ssh mon-serveur"
         ]
       }
     ]
@@ -895,7 +933,11 @@
         "name": "locate",
         "desc": "Rechercher un fichier par nom dans tout le système",
         "options": [
-          "-i (ignorer la casse) -c (compte le nombre d'occurence) -f (nom plutôt que motif) -r (expression régulière) -b (basename - fin arborescence)"
+          "-i (ignorer la casse)",
+          "-c (compte le nombre d'occurence)",
+          "-f (nom plutôt que motif)",
+          "-r (expression régulière)",
+          "-b (basename - fin arborescence)"
         ],
         "example": [
           "locate -i -b \"shadow*\""
