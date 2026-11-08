@@ -1105,12 +1105,11 @@
         "name": "tar",
         "desc": "Gérer l'archivage de fichiers\nExtentions :\nTar - .tar\ngzip - .tar.gz OU .tgz\nbzip2 - .tar.bz2 OU .tbz2\nxv - .zstd\nZstandard - .zstd",
         "options": [
-          "-c (Créer l'archive) -v (verbose) -f (indique le fichier à utiliser Att : METTRE EN DERNIERE OPTION) -t (lister une archive) -x (extraction)",
-          "-j (Compression ou décompression bzip2)",
-          "-z (Compression ou décompression gzip)",
-          "-J (Compression ou décompression xz)",
-          "-zstd (Compression ou décompression Zstandard)",
-          "-C (indique le dossier de destination) -r (rajouter des fichiers à la fin de l'archive) -P (présèrve le chemin absolue / devant) --exclude (exclure des fichiers) --delete (suppresion des fichiers d'un archive"
+          "-c (Créer l'archive) -v (verbose) -f (indique le fichier à utiliser Att : METTRE EN DERNIERE OPTION) -t (lister une archive) -x (extraction) -j (Compression ou décompression bzip2) -z (Compression ou décompression gzip) -J (Compression ou décompression xz) -zstd (Compression ou décompression Zstandard) -C (indique le dossier de destination)",
+          "-r (rajouter des fichiers à la fin de l'archive)",
+          "-P (présèrve le chemin absolue / devant)",
+          "--exclude (exclure des fichiers)",
+          "--delete (suppresion des fichiers d'un archive)"
         ],
         "example": [
           "tar -cv -f monArchive.tar /home/fichier1",
